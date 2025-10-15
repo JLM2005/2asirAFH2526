@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <title>EJERCICIOS AFH</title>
+    <link href="https://jlm2005.github.io/2asirAFH2526/trabajos/feed.xml" rel="self" />
+    <link href="https://jlm2005.github.io/2asirAFH2526/trabajos" />
+    <updated>2025-10-15T16:21:28+02:00</updated>
+    <author>
+        <name>Julio LM</name>
+    </author>
+    <id>https://jlm2005.github.io/2asirAFH2526/trabajos</id>
+
+    <entry>
+        <title>TRABAJOS OPT-AFH</title>
+        <author>
+            <name>Julio LM</name>
+        </author>
+        <link href="https://jlm2005.github.io/2asirAFH2526/trabajos/trabajos-opt-afh.html"/>
+        <id>https://jlm2005.github.io/2asirAFH2526/trabajos/trabajos-opt-afh.html</id>
+
+        <updated>2025-10-15T16:21:28+02:00</updated>
+            <summary>
+                <![CDATA[
+                    Ejercicios de OPT-AFH:
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h1><span style="text-decoration: underline;">Ejercicios de <strong>OPT-AFH</strong>:</span></h1>
+            ]]>
+        </content>
+    </entry>
+</feed>
