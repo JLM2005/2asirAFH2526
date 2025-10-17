@@ -1,3 +1,0 @@
-User-agent: *
-Disallow:
-Sitemap: https://jlm2005.github.io/2asirAFH2526/sitemap.xml
