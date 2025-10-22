@@ -52,7 +52,6 @@
             padding-top: 24px;
         }
         h2 {
-            font-family: inherit;
             color: #f0bd8b;
         }
         .fecha-autor {
@@ -75,7 +74,6 @@
         button:hover {
             background: #ffc686;
         }
-        /* Ejercicio oculto por defecto */
         .ejercicio {
             display: none;
             margin-top: 20px;
@@ -92,6 +90,13 @@
             background: none;
             border: none;
         }
+        .pdfview {
+            width: 100%;
+            height: 600px;
+            margin-top:10px;
+            border: 1px solid #f0bd8b;
+            background: #131313;
+        }
     </style>
 </head>
 <body>
@@ -104,25 +109,36 @@
     </header>
     <main>
         <section>
-            <h2>Esta es la 2<sup>a</sup> ENTRADA</h2>
+            <h2>Presupuesto Servidor IA</h2>
             <div class="fecha-autor">15/10/2025 :: Julio LM</div>
-            <p>PRUEBA PRUEBA</p>
-            <button onclick="verEjercicio('ej2')">Ver ejercicio</button>
-            <div class="ejercicio" id="ej2">
-                <button class="cerrar" onclick="cerrarEjercicio('ej2')">✕</button>
-                <h3>Ejercicio 2</h3>
-                <p>Contenido del ejercicio 2...</p>
+            <p>Ejercicio de presupuesto y análisis para montar un servidor con IA.</p>
+            <button onclick="verEjercicio('ej1')">Ver ejercicio</button>
+            <div class="ejercicio" id="ej1">
+                <button class="cerrar" onclick="cerrarEjercicio('ej1')">✕</button>
+                <h3>Presupuesto Servidor IA</h3>
+                <iframe class="pdfview" src="trabajos/PDF/Montar un servidor de IA.pdf"></iframe>
             </div>
         </section>
         <section>
-            <h2>TRABAJOS OPT-AFH</h2>
+            <h2>Montar y desmontar un servidor</h2>
             <div class="fecha-autor">15/10/2025 :: Julio LM</div>
-            <p>Ejercicios de OPT-AFH:</p>
-            <button onclick="verEjercicio('opt-afh')">Ver ejercicio</button>
-            <div class="ejercicio" id="opt-afh">
-                <button class="cerrar" onclick="cerrarEjercicio('opt-afh')">✕</button>
-                <h3>Ejercicio OPT-AFH</h3>
-                <p>Contenido del ejercicio OPT-AFH...</p>
+            <p>Tarea práctica de montaje y desmontaje de servidores en taller.</p>
+            <button onclick="verEjercicio('ej2')">Ver ejercicio</button>
+            <div class="ejercicio" id="ej2">
+                <button class="cerrar" onclick="cerrarEjercicio('ej2')">✕</button>
+                <h3>Montar y desmontar un servidor</h3>
+                <iframe class="pdfview" src="trabajos/PDF/Tarea 2ASIR. Desmontar y Montar un servidor y un portátil en el taller - JulioLuengo.pdf"></iframe>
+            </div>
+        </section>
+        <section>
+            <h2>Montar y desmontar un PC</h2>
+            <div class="fecha-autor">15/10/2025 :: Julio LM</div>
+            <p>Tarea práctica de montaje y desmontaje de un PC en taller.</p>
+            <button onclick="verEjercicio('ej3')">Ver ejercicio</button>
+            <div class="ejercicio" id="ej3">
+                <button class="cerrar" onclick="cerrarEjercicio('ej3')">✕</button>
+                <h3>Montar y desmontar un PC</h3>
+                <iframe class="pdfview" src="trabajos/PDF/Tarea 2ASIR. Desmontar y Montar un PC en el taller - JulioLuengo.pdf"></iframe>
             </div>
         </section>
     </main>
