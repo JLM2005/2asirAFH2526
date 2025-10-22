@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!--Elaborado por Julio Luengo Mendoza-->
+    <meta charset="UTF-8">
+    <title>Ejercicios AFH x Julio Luengo Mendoza</title>
+    <style>
+        body {
+            background: #222129;
+            color: #f0bd8b;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+        }
+        header, main {
+            max-width: 900px;
+            margin: auto;
+            padding: 32px 0;
+        }
+        .titulo-bloque {
+            display: flex;
+            align-items: center;
+        }
+        .tag {
+            background: #f0bd8b;
+            color: #222129;
+            padding: 8px 18px;
+            font-weight: bold;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+        .barra {
+            flex: 1;
+            height: 12px;
+            background: repeating-linear-gradient(
+                to right,
+                #f0bd8b,
+                #f0bd8b 2px,
+                transparent 2px,
+                transparent 8px
+            );
+        }
+        h1 {
+            margin-top: 32px;
+            background: #1d1c23;
+            padding: 48px;
+            font-size: 2em;
+            border: 2px solid #f0bd8b;
+        }
+        section {
+            border-top: 2px solid #f0bd8b;
+            margin-top: 32px;
+            padding-top: 24px;
+        }
+        h2 {
+            font-family: inherit;
+            color: #f0bd8b;
+        }
+        .fecha-autor {
+            color: #c8a979;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #f0bd8b;
+            color: #222129;
+            border: none;
+            padding: 8px 18px;
+            font-family: inherit;
+            font-size: 1em;
+            border-radius: 2px;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #ffc686;
+        }
+        /* Ejercicio oculto por defecto */
+        .ejercicio {
+            display: none;
+            margin-top: 20px;
+            background: #1d1c23;
+            border: 1px solid #f0bd8b;
+            padding: 24px;
+            color: #f0bd8b;
+        }
+        .cerrar {
+            float: right;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #ffc686;
+            background: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="titulo-bloque">
+            <span class="tag">EJERCICIOS AFH</span>
+            <div class="barra"></div>
+        </div>
+        <h1>OPT-AFH x Julio Luengo Mendoza</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Esta es la 2<sup>a</sup> ENTRADA</h2>
+            <div class="fecha-autor">15/10/2025 :: Julio LM</div>
+            <p>PRUEBA PRUEBA</p>
+            <button onclick="verEjercicio('ej2')">Ver ejercicio</button>
+            <div class="ejercicio" id="ej2">
+                <button class="cerrar" onclick="cerrarEjercicio('ej2')">✕</button>
+                <h3>Ejercicio 2</h3>
+                <p>Contenido del ejercicio 2...</p>
+            </div>
+        </section>
+        <section>
+            <h2>TRABAJOS OPT-AFH</h2>
+            <div class="fecha-autor">15/10/2025 :: Julio LM</div>
+            <p>Ejercicios de OPT-AFH:</p>
+            <button onclick="verEjercicio('opt-afh')">Ver ejercicio</button>
+            <div class="ejercicio" id="opt-afh">
+                <button class="cerrar" onclick="cerrarEjercicio('opt-afh')">✕</button>
+                <h3>Ejercicio OPT-AFH</h3>
+                <p>Contenido del ejercicio OPT-AFH...</p>
+            </div>
+        </section>
+    </main>
+    <script>
+        function verEjercicio(id) {
+            document.querySelectorAll('.ejercicio').forEach(function(div) {
+                div.style.display = 'none';
+            });
+            document.getElementById(id).style.display = 'block';
+        }
+        function cerrarEjercicio(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
