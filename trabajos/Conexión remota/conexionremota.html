@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Conexión remota | Portfolio Julio LM</title>
+    <style>
+        body {
+            background: #222129;
+            color: #f0bd8b;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 5%;
+        }
+        header, main {
+            max-width: 960px;
+            margin: auto;
+            padding: 32px 15px 0 15px;
+        }
+        .titulo-bloque {
+            display: flex;
+            align-items: center;
+            margin-top: 32px;
+        }
+        .tag {
+            background: #f0bd8b;
+            color: #222129;
+            padding: 8px 18px;
+            font-weight: bold;
+            margin-right: 12px;
+            border-radius: 2px;
+            letter-spacing: 0.5px;
+        }
+        .barra {
+            flex: 1;
+            height: 12px;
+            background: repeating-linear-gradient(
+                to right,
+                #f0bd8b,
+                #f0bd8b 2px,
+                transparent 2px,
+                transparent 8px
+            );
+        }
+        h1 {
+            margin-top: 28px;
+            background: #1d1c23;
+            padding: 36px 0;
+            font-size: 2.1em;
+            letter-spacing: 2px;
+            border: 2px solid #f0bd8b;
+            text-align: center;
+        }
+        h2, h3 {
+            color: #f0bd8b;
+            margin-top: 36px;
+        }
+        .fecha-autor {
+            color: #c8a979;
+            font-size: 1em;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .autor-block {
+            text-align: center;
+            margin: 10px 0 42px 0;
+        }
+        .indice {
+            margin: 32px 0 40px 0;
+            padding: 24px;
+            background: #1d1c23;
+            border-left: 3px solid #f0bd8b;
+            border-radius: 7px;
+        }
+        .indice a {
+            display: block;
+            color: #ffc686;
+            margin-bottom: 9px;
+            font-size: 1.12em;
+            text-decoration: none;
+        }
+        .indice a:hover {
+            text-decoration: underline;
+        }
+        section {
+            border-top: 2px dotted #f0bd8b;
+            margin-top: 30px;
+            padding-top: 16px;
+        }
+        img {
+            width: 100%;
+            max-width: 550px;
+            margin: 16px 0 5px 0;
+            border: 2px solid #f0bd8b;
+            background: #191821;
+            box-shadow: 0 2px 18px rgba(100,90,50,0.08);
+            display: block;
+        }
+        .pie-foto {
+            color: #c8a979;
+            font-size: 0.95em;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        nav {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        a.volver {
+            color: #ffc686;
+            text-decoration: none;
+            font-size: 1.08em;
+        }
+        a.volver:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-left: 24px;
+        }
+        hr {
+            border: 1px solid #f0bd8b;
+            margin: 38px 0 28px 0;
+        }
+        .content-block {
+            background: #24232a;
+            border-radius: 6px;
+            padding: 18px 26px;
+            margin: 25px 0 0 0;
+            box-shadow: 0 2px 18px rgba(110,100,56,0.07);
+        }
+        .code {
+            background: #292832;
+            color: #f0bd8b;
+            padding: 6px 14px;
+            border-radius: 4px;
+            width: fit-content;
+            font-size: 1.03em;
+            font-family: inherit;
+            margin: 8px 0;
+            display: inline-block;
+        }
+
+        a {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="titulo-bloque">
+            <span class="tag"><a href="../../index.html">CONEXIÓN REMOTA</a> </span>
+            <div class="barra"></div>
+        </div>
+        <h1>Conexión remota</h1>
+    </header>
+    <nav>
+        <a href="../index.html" class="volver">← Volver al índice</a>
+    </nav>
+    <div class="autor-block">Elaborado por: Julio Luengo Mendoza</div>
+    <div class="indice">
+        <a href="#resumen">RESUMEN</a>
+        <a href="#ssh_linux">Conexión remota por SSH en Linux</a>
+        <a href="#ssh_windows">Conexión remota por SSH en Windows (putty)</a>
+        <a href="#ssh_sin_pw">Acceso SSH sin contraseña</a>
+        <a href="#rdp_windows">Conexión de escritorio remoto en Windows (RDP)</a>
+        <a href="#rdp_linux">Escritorio Remoto (RDP) desde Linux</a>
+        <a href="#anydesk">Software de acceso remoto</a>
+    </div>
+
+    <section id="resumen">
+        <h2>RESUMEN</h2>
+        <div class="content-block">
+        Se ha implementado y probado acceso remoto y administración entre tres máquinas virtuales conectadas dentro de una red local. Se ha trabajado con una VM Linux (IP 192.168.1.1), una segunda VM Linux (IP 192.168.1.2) y una VM Windows (IP 192.168.1.3).<br>
+        Las tareas incluyeron la configuración de servicios SSH y pruebas de escritorio remoto (RDP), así como la instalación y uso de software de acceso remoto como AnyDesk.<br>
+        Las conexiones se documentaron utilizando usuarios personalizados y capturas en cada paso relevante del proceso.
+        </div>
+    </section>
+
+    <section id="ssh_linux">
+        <h2>Conexión remota por SSH en Linux</h2>
+        <div class="content-block">
+            <ol>
+                <li>Crear usuario personalizado <span class="code">$ sudo adduser nombreapellido</span></li>
+                <li>Instalar OpenSSH Server
+                    <div class="code">$ sudo apt update</div>
+                    <div class="code">$ sudo apt install openssh-server  # Intalamos openssh</div>
+                    <div class="code">$ sudo systemctl start ssh #Iniciamos servicio ssh</div>
+                    <div class="code">$ sudo systemctl enable ssh #Habilitado el servicio ssh</div>
+                </li>
+                <li>Imagen (Status servicio ssh)</li>
+                <img src="images/image19.png" alt="Status SSH service">
+                <div class="pie-foto">Estado del servicio SSH en el sistema Linux.</div><br>
+                <li>Probamos conexión SSH <span class="code">$ ssh nombreapellido@ip_del_servidor</span> <div style="margin-top:3px;"># ip del servidor 192.168.1.1</div></li>
+                <img src="images/image10.png" alt="Conexión SSH Linux">
+                <div class="pie-foto">Ejemplo de conexión SSH desde Linux.</div><br>
+                <li>Creación de una carpeta por SSH</li>
+                <img src="images/image7.png" alt="Creación carpeta SSH">
+                <div class="pie-foto">Creación y visualización de carpetas por SSH.</div><br>
+            </ol>
+        </div>
+    </section>
+
+    <section id="ssh_windows">
+        <h2>Conexión remota por SSH en Windows (putty)</h2>
+        <div class="content-block">
+            <ol>
+                <li>Descargamos PuTTY <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html" target="_blank">Descarga PuTTY</a><br>
+                    # En este caso uso ejecutable .exe
+                </li>
+                <li>Probamos conexión SSH</li>
+                <img src="images/image4.png" alt="PuTTY conexión SSH">
+                <div class="pie-foto">Configuración y conexión SSH con PuTTY en Windows.</div><br>
+                <li>Creación de una carpeta por SSH</li>
+                <img src="images/image20.png" alt="Carpeta SSH PuTTY">
+                <div class="pie-foto">Creación de carpetas desde PuTTY.</div><br>
+            </ol>
+        </div>
+    </section>
+
+    <section id="ssh_sin_pw">
+        <h2>Acceso SSH sin contraseña</h2>
+        <div class="content-block">
+            <ol>
+                <li>Crear clave pública y privada en el cliente Linux. ¡La clave privada no se comparte!
+                    <div class="code">$ ssh-keygen</div>
+                </li>
+                <img src="images/image13.png" alt="ssh-keygen Linux">
+                <div class="pie-foto">Generación de claves SSH públicas y privadas en Linux.</div><br>
+                <li>Copiar la clave pública al servidor remoto <span class="code">$ ssh-copy-id julioluengo@192.168.1.1</span></li>
+                <img src="images/image1.png" alt="ssh-copy-id Linux">
+                <div class="pie-foto">Transferencia de la clave pública mediante SSH.</div><br>
+                <li>Probar la conexión sin la contraseña</li>
+                <img src="images/image2.png" alt="Conexión SSH sin contraseña">
+                <div class="pie-foto">Acceso a través de SSH usando clave pública.</div><br>
+            </ol>
+        </div>
+    </section>
+
+    <section id="rdp_windows">
+        <h2>Conexión de escritorio remoto en Windows (RDP)</h2>
+        <div class="content-block">
+            <ol>
+                <li>Ve a <em>Configuración &gt; Sistema &gt; Escritorio remoto</em>. (Habilitar Escritorio remoto en ambas maquinas)</li>
+                <img src="images/image9.png" alt="Activar escritorio remoto Windows"><br>
+                <div class="pie-foto">Configuración del escritorio remoto.</div><br>
+                <li>Abrir “Conexión a Escritorio remoto” en el menú de inicio. (escribimos el nombre del equipo)</li>
+                <img src="images/image11.png" alt="Conexión a escritorio remoto"><br>
+                <li>Introducimos las credenciales de la cuenta en este caso de un usuario de Windows</li>
+                <img src="images/image14.png" alt="Credenciales RDP Windows"><br>
+                <li>Vista desde escritorio remoto</li>
+                <img src="images/image12.png" alt="Vista escritorio remoto"><br>
+                <div class="pie-foto">Ejemplo de pantalla por RDP desde Windows.</div><br>
+            </ol>
+        </div>
+    </section>
+
+    <section id="rdp_linux">
+        <h2>Escritorio Remoto (RDP) desde Linux</h2>
+        <div class="content-block">
+            <ol>
+                <li>Instalar Remmina en Linux
+                    <div class="code">$ sudo apt install remmina remmina-plugin-rdp</div>
+                </li>
+                <li>Iniciamos el programa <span class="code">$ remmina</span></li>
+                <li>Conectarse desde Remmina (Nos permite guardar varios equipos)</li>
+                <img src="images/image18.png" alt="Remmina conexión múltiple"><br>
+                <li>Vista desde Remmina</li>
+                <img src="images/image17.png" alt="Remmina Linux"><br>
+                <div class="pie-foto">Pantalla ejemplo de sesión con Remmina.</div><br>
+            </ol>
+        </div>
+    </section>
+
+    <section id="anydesk">
+        <h2>Software de acceso remoto</h2>
+        <div class="content-block">
+            <ol>
+                <li>Instalación de AnyDesk en Windows. <a href="https://anydesk.com/es/downloads/" target="_blank">Descarga AnyDesk</a></li>
+                <li>Instalación de AnyDesk en Linux. <a href="https://anydesk.com/es/downloads/" target="_blank">Descarga AnyDesk</a>
+                    <div class="code">$ tar -xvf anydesk-7.1.0-amd64.tar.gz</div>
+                </li>
+                <li>Abrir Anydesk en Windows y copiar el ID (Número rojos)</li>
+                <img src="images/image5.png" alt="AnyDesk Windows"><br>
+                <li>Abrir Anydesk en Linux y pegar el ID de windows</li>
+                <img src="images/image3.png" alt="AnyDesk Linux"><br>
+                <li>En la MV de Windows se despliega una ventana con diferentes opciones (permiso ratón, poder escuchar…)</li>
+                <img src="images/image21.png" alt="Opciones AnyDesk Windows"><br>
+                <li>Vista desde Linux a Windows</li>
+                <img src="images/image16.png" alt="Vista Linux a Windows"><br>
+                <li>Vista desde Window a Linux</li>
+                <img src="images/image6.png" alt="Vista Windows a Linux"><br>
+                <li>Control desde Windows</li>
+                <img src="images/image8.png" alt="Control Windows"><br>
+                <li>Si no funciona: Cierra la sesión de tu usuario en Ubuntu/Linux y en la pantalla de login (antes de meter la contraseña):</li>
+                <ul>
+                    <li>Busca un ícono de rueda dentada o engranaje cerca del botón de acceso.</li>
+                    <li>Haz clic y selecciona “Ubuntu en Xorg” o “Gnome on Xorg”, o una opción similar.</li>
+                    <li>Inicia sesión normalmente.</li>
+                </ul>
+                <img src="images/image15.png" alt="Login Xorg Ubuntu"><br> 
+                <li>Vista desde Molvi a Windows</li>
+                <img src="images/image23.jpg" alt="Login Xorg Ubuntu"><br> 
+                
+            </ol>
+        </div>
+    </section>
+</body>
+</html>
