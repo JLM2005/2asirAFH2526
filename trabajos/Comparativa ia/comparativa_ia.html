@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Comparativa modelos IA | Portfolio Julio LM</title>
+  <style>
+    /* Estilo base igual que la página de conexión remota */
+    body {
+      background: #222129;
+      color: #f0bd8b;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 5%;
+    }
+
+    header, main {
+      max-width: 960px;
+      margin: auto;
+      padding: 32px 15px 0 15px;
+    }
+
+    .titulo-bloque {
+      display: flex;
+      align-items: center;
+      margin-top: 32px;
+    }
+
+    .tag {
+      background: #f0bd8b;
+      color: #222129;
+      padding: 8px 18px;
+      font-weight: bold;
+      margin-right: 12px;
+      border-radius: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .barra {
+      flex: 1;
+      height: 12px;
+      background: repeating-linear-gradient(
+        to right,
+        #f0bd8b,
+        #f0bd8b 2px,
+        transparent 2px,
+        transparent 8px
+      );
+    }
+
+    h1 {
+      margin-top: 28px;
+      background: #1d1c23;
+      padding: 24px 0;
+      font-size: 2.1em;
+      letter-spacing: 2px;
+      border: 2px solid #f0bd8b;
+      text-align: center;
+    }
+
+    .subtitle {
+      max-width: 960px;
+      margin: 10px auto 20px auto;
+      padding: 0 15px;
+      color: #c8a979;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    nav {
+      max-width: 960px;
+      margin: 0 auto 24px auto;
+      padding: 0 15px;
+      text-align: left;
+    }
+
+    a.volver {
+      color: #ffc686;
+      text-decoration: none;
+      font-size: 1.08em;
+    }
+
+    a.volver:hover {
+      text-decoration: underline;
+    }
+
+    /* Panel de la comparativa integrado en el estilo de bloques */
+    .panel {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #24232a;
+      border-radius: 6px;
+      padding: 18px 18px 22px 18px;
+      box-shadow: 0 2px 18px rgba(110,100,56,0.07);
+      border: 2px solid #f0bd8b;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .controls-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: #c8a979;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    select {
+      background: #1d1c23;
+      color: #f0bd8b;
+      border-radius: 999px;
+      border: 1px solid #f0bd8b;
+      padding: 5px 12px;
+      font-size: 0.85rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    select:hover {
+      background: #2a2934;
+    }
+
+    .chart-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      font-size: 0.8rem;
+      margin: 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      border: 1px solid #1d1c23;
+    }
+
+    .legend-text {
+      color: #f0bd8b;
+    }
+
+    svg {
+      width: 100%;
+      max-height: 420px;
+      background: #191821;
+      border-radius: 4px;
+      overflow: visible;
+      margin: 0;
+      border: 1px solid #f0bd8b;
+      box-shadow: 0 2px 18px rgba(100,90,50,0.08);
+    }
+
+    .axis path,
+    .axis line {
+      stroke: #6b574e;
+      stroke-width: 1;
+      shape-rendering: crispEdges;
+    }
+
+    .axis text {
+      fill: #f0bd8b;
+      font-size: 10px;
+    }
+
+    .bar {
+      rx: 3;
+      ry: 3;
+      cursor: pointer;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    .bar:hover {
+      opacity: 0.85;
+      transform: translateY(-3px);
+    }
+
+    .grid line {
+      stroke: rgba(200, 169, 121, 0.25);
+      stroke-width: 0.6;
+    }
+
+    .tooltip {
+      position: fixed;
+      pointer-events: none;
+      background: #1d1c23;
+      border-radius: 6px;
+      padding: 8px 10px;
+      color: #f0bd8b;
+      font-size: 0.78rem;
+      border: 1px solid #f0bd8b;
+      box-shadow: 0 2px 18px rgba(110,100,56,0.3);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.1s ease, transform 0.1s ease;
+      z-index: 10;
+      max-width: 260px;
+      line-height: 1.35;
+    }
+
+    .tooltip strong {
+      color: #ffc686;
+    }
+
+    .tooltip-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 2px;
+    }
+
+    .meta {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: #c8a979;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .meta span {
+      white-space: nowrap;
+    }
+
+    .section-text {
+      max-width: 960px;
+      margin: 24px auto 0 auto;
+      color: #f0bd8b;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding: 0 15px;
+    }
+
+    .section-text h2 {
+      color: #f0bd8b;
+      margin-top: 36px;
+    }
+
+    .section-text .content-block {
+      background: #24232a;
+      border-radius: 6px;
+      padding: 18px 26px;
+      margin: 12px 0 0 0;
+      box-shadow: 0 2px 18px rgba(110,100,56,0.07);
+    }
+
+    .section-text ul {
+      margin-left: 24px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 16px;
+      }
+      header, main {
+        padding: 24px 8px 0 8px;
+      }
+      .panel {
+        padding: 16px 12px 20px 12px;
+      }
+      .controls {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .meta span {
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="titulo-bloque">
+      <span class="tag"><a href="../../index.html" style="color:#222129;text-decoration:none;">MODELOS IA</a></span>
+      <div class="barra"></div>
+    </div>
+    <h1>Comparativa de modelos de IA</h1>
+  </header>
+
+  <nav>
+    <a href="../index.html" class="volver">← Volver al índice</a>
+  </nav>
+
+  <p class="subtitle">
+    Coste medio por modelo según plataforma y acertijo.
+  </p>
+
+  <div class="panel">
+    <div class="controls">
+      <div class="controls-group">
+        <label for="platformSelect">Plataforma</label>
+        <select id="platformSelect">
+          <option value="ALL">Todas</option>
+          <option value="MAC">MAC</option>
+          <option value="WINDOWS">WINDOWS</option>
+        </select>
+
+        <label for="puzzleSelect">Acertijo</label>
+        <select id="puzzleSelect">
+          <option value="ALL">Todos</option>
+          <option value="INTERRUPTORES">INTERRUPTORES</option>
+          <option value="RIO">RIO</option>
+          <option value="PADRE_JUAN">PADRE_JUAN</option>
+          <option value="CARRERA">CARRERA</option>
+          <option value="BATE_PELOTA">BATE_PELOTA</option>
+          <option value="DESIERTO">DESIERTO</option>
+        </select>
+      </div>
+
+      <div class="controls-group">
+        <label for="metricSelect">Métrica</label>
+        <select id="metricSelect">
+          <option value="coste">Coste (media)</option>
+          <option value="tk_s">Tokens/s (media)</option>
+          <option value="ptk">ptk token (media)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="chart-wrapper">
+      <div class="legend" id="legend"></div>
+      <svg id="chart" viewBox="0 0 900 420"></svg>
+    </div>
+
+    <div class="meta">
+      <span id="meta-left"></span>
+      <span id="meta-right"></span>
+    </div>
+  </div>
+
+  <section class="section-text">
+    <h2>Modelos, configuración y métricas</h2>
+    <div class="content-block">
+      <p>
+        En esta comparativa se han evaluado cuatro modelos ligeros optimizados para ejecución local,
+        todos ellos adecuados para tareas de razonamiento corto y acertijos lógicos:
+        <strong>deepseek/deepseek-r1-0528-qwen3-8b</strong> (~8B parámetros),
+        <strong>qwen/qwen3-vl-4b</strong> (~4.4B parámetros, contexto largo),
+        <strong>liquid/lfm2-1.2b</strong> (~1.2B parámetros, baseline rápido) y
+        <strong>google/gemma-3-4b</strong> (4B parámetros, modelo generalista de Google).
+      </p>
+      <p>
+        Los parámetros de muestreo se han fijado con una <strong>temperatura de 0.8</strong> en todos los casos,
+        buscando un equilibrio entre estabilidad y creatividad en las respuestas.
+        La visualización permite comparar por plataforma y acertijo usando coste medio, tokens por segundo
+        y coste por 1k tokens, además de ver la tasa de acierto en cada puzzle.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-text">
+    <h2>Evaluación en acertijos lógicos</h2>
+    <div class="content-block">
+      <p>
+        Para medir la calidad de razonamiento se han usado seis acertijos clásicos con dificultades crecientes:
+        desde problemas sencillos de posiciones en una carrera hasta puzzles de planificación con múltiples restricciones.
+      </p>
+      <ul>
+        <li><strong>RÍO (lobo, cabra, lechuga)</strong> – Dificultad 6.</li>
+        <li><strong>INTERRUPTORES</strong> – Dificultad 5.</li>
+        <li><strong>DESIERTO</strong> – Dificultad 4.</li>
+        <li><strong>BATE_PELOTA</strong> – Dificultad 3.</li>
+        <li><strong>PADRE_JUAN</strong> – Dificultad 2.</li>
+        <li><strong>CARRERA</strong> – Dificultad 1.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="tooltip" id="tooltip"></div>
+
+  <script>
+    // --- Datos embebidos desde el CSV ---
+    const rawCsv = `plataforma,ACERTIJO,modelo,tk_s,coste,ptk,acierta
+MAC,INTERRUPTORES,google/gemma-3-12b,14.24,281.0,1.17,si
+MAC,RIO,google/gemma-3-12b,13.75,327.0,1.32,si
+MAC,PADRE_JUAN,google/gemma-3-12b,13.92,68.0,0.85,si
+MAC,CARRERA,google/gemma-3-12b,13.97,55.0,0.61,si
+MAC,BATE_PELOTA,google/gemma-3-12b,13.65,274.0,0.82,si
+MAC,DESIERTO,google/gemma-3-12b,13.6,162.0,1.08,si
+MAC,INTERRUPTORES,deepseek/deepseek-r1-0528-qwen3-8b,11.62,3924.0,1.05,si
+MAC,RIO,deepseek/deepseek-r1-0528-qwen3-8b,11.82,2713.0,0.72,si
+MAC,PADRE_JUAN,deepseek/deepseek-r1-0528-qwen3-8b,10.64,1280.0,10.27,si
+MAC,CARRERA,deepseek/deepseek-r1-0528-qwen3-8b,11.69,3346.0,0.59,si
+MAC,BATE_PELOTA,deepseek/deepseek-r1-0528-qwen3-8b,11.9,786.0,0.56,si
+MAC,DESIERTO,deepseek/deepseek-r1-0528-qwen3-8b,11.56,2199.0,1.83,no
+MAC,INTERRUPTORES,liquid/lfm2-1.2b,75.38,243.0,0.46,no
+MAC,RIO,liquid/lfm2-1.2b,74.4,258.0,0.35,no
+MAC,PADRE_JUAN,liquid/lfm2-1.2b,73.76,48.0,0.09,no
+MAC,CARRERA,liquid/lfm2-1.2b,73.37,95.0,0.07,no
+MAC,BATE_PELOTA,liquid/lfm2-1.2b,73.71,221.0,0.09,si
+MAC,DESIERTO,liquid/lfm2-1.2b,72.81,286.0,0.11,no
+MAC,INTERRUPTORES,qwen/qwen3-vl-4b,38.91,723.0,0.46,si
+MAC,RIO,qwen/qwen3-vl-4b,34.49,391.0,6.37,no
+MAC,PADRE_JUAN,qwen/qwen3-vl-4b,33.43,623.0,7.49,si
+MAC,CARRERA,qwen/qwen3-vl-4b,31.86,674.0,9.35,no
+MAC,BATE_PELOTA,qwen/qwen3-vl-4b,31.86,674.0,9.35,si
+MAC,DESIERTO,qwen/qwen3-vl-4b,36.33,1524.0,1.31,no
+WINDOWS,INTERRUPTORES,deepseek/deepseek-r1-0528-qwen3-8b,70.51,882,0.07,si
+WINDOWS,RIO,deepseek/deepseek-r1-0528-qwen3-8b,68.85,383,0.15,no
+WINDOWS,PADRE_JUAN,deepseek/deepseek-r1-0528-qwen3-8b,69.33,168,0.24,si
+WINDOWS,CARRERA,deepseek/deepseek-r1-0528-qwen3-8b,66.73,295,0.24,si
+WINDOWS,BATE_PELOTA,deepseek/deepseek-r1-0528-qwen3-8b,66.47,818,0.22,no
+WINDOWS,DESIERTO,deepseek/deepseek-r1-0528-qwen3-8b,67.14,360,0.06,no
+WINDOWS,INTERRUPTORES,google/gemma-3-12b,45.64,174,0.29,si
+WINDOWS,RIO,google/gemma-3-12b,41.32,213,0.21,si
+WINDOWS,PADRE_JUAN,google/gemma-3-12b,45.64,45,0.22,si
+WINDOWS,CARRERA,google/gemma-3-12b,44.62,53,0.18,si
+WINDOWS,BATE_PELOTA,google/gemma-3-12b,44.13,177,0.17,si
+WINDOWS,DESIERTO,google/gemma-3-12b,44.08,129,0.24,si
+WINDOWS,INTERRUPTORES,liquid/lfm2-1.2b,217.84,297,0.1,si
+WINDOWS,RIO,liquid/lfm2-1.2b,216.83,156,0.23,no
+WINDOWS,PADRE_JUAN,liquid/lfm2-1.2b,160.75,70,0.12,no
+WINDOWS,CARRERA,liquid/lfm2-1.2b,228.31,61,0.18,no
+WINDOWS,BATE_PELOTA,liquid/lfm2-1.2b,216.24,162,0.19,si
+WINDOWS,DESIERTO,liquid/lfm2-1.2b,191.17,124,0.13,si
+WINDOWS,INTERRUPTORES,qwen/qwen3-vl-4b,111.29,324,0.22,si
+WINDOWS,RIO,qwen/qwen3-vl-4b,No resuelve,No resuelve,NaN,no
+WINDOWS,PADRE_JUAN,qwen/qwen3-vl-4b,110.03,335,0.15,si
+WINDOWS,CARRERA,qwen/qwen3-vl-4b,100.34,337,0.51,si
+WINDOWS,BATE_PELOTA,qwen/qwen3-vl-4b,99.15,393,0.6,si
+WINDOWS,DESIERTO,qwen/qwen3-vl-4b,98.48,684,0.52,no`;
+
+    function parseCsv(text) {
+      const lines = text.trim().split(/\r?\n/);
+      const headers = lines[0].split(",");
+      return lines.slice(1).map(line => {
+        const cols = line.split(",");
+        const row = {};
+        headers.forEach((h, i) => {
+          let v = cols[i];
+          if (["tk_s", "coste", "ptk"].includes(h)) {
+            const num = parseFloat(v.replace(",", "."));
+            row[h] = Number.isNaN(num) ? NaN : num;
+          } else {
+            row[h] = v;
+          }
+        });
+        return row;
+      });
+    }
+
+    const data = parseCsv(rawCsv);
+    const models = [...new Set(data.map(d => d.modelo))];
+
+    const palette = {
+      "google/gemma-3-12b": "#4b8dff",
+      "deepseek/deepseek-r1-0528-qwen3-8b": "#ff7a68",
+      "liquid/lfm2-1.2b": "#ffc857",
+      "qwen/qwen3-vl-4b": "#7ae582"
+    };
+
+    function groupData(metric, filterPlatform, filterPuzzle) {
+      const keyFn = d => `${d.plataforma}|${d.modelo}`;
+      const groups = new Map();
+
+      data.forEach(d => {
+        if (filterPlatform !== "ALL" && d.plataforma !== filterPlatform) return;
+        if (filterPuzzle !== "ALL" && d.ACERTIJO !== filterPuzzle) return;
+        const value = d[metric];
+        if (!Number.isFinite(value)) return;
+        const key = keyFn(d);
+        if (!groups.has(key)) {
+          groups.set(key, {
+            plataforma: d.plataforma,
+            modelo: d.modelo,
+            sum: 0,
+            count: 0,
+            acertados: 0,
+            total: 0
+          });
+        }
+        const g = groups.get(key);
+        g.sum += value;
+        g.count += 1;
+        g.total += 1;
+        if (d.acierta === "si") g.acertados += 1;
+      });
+
+      return Array.from(groups.values()).map(g => ({
+        plataforma: g.plataforma,
+        modelo: g.modelo,
+        value: g.count ? g.sum / g.count : 0,
+        tasaAcierto: g.total ? g.acertados / g.total : 0,
+        muestras: g.count
+      }));
+    }
+
+    function computeScales(dataset) {
+      const xCats = [...new Set(dataset.map(d => d.plataforma))];
+      const yMax = dataset.length ? Math.max(...dataset.map(d => d.value)) * 1.15 : 1;
+
+      const margin = { top: 30, right: 20, bottom: 70, left: 60 };
+      const width = 900 - margin.left - margin.right;
+      const height = 420 - margin.top - margin.bottom;
+
+      const xBandWidth = width / Math.max(xCats.length, 1);
+      const innerPadding = 0.2;
+      const barPadding = 0.1;
+
+      const modelsOrder = models;
+
+      return {
+        margin,
+        width,
+        height,
+        xCats,
+        yMax,
+        xBandWidth,
+        innerPadding,
+        barPadding,
+        modelsOrder
+      };
+    }
+
+    function drawChart(metric = "coste", filterPlatform = "ALL", filterPuzzle = "ALL") {
+      const svg = document.getElementById("chart");
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+      const tooltip = document.getElementById("tooltip");
+      const legendEl = document.getElementById("legend");
+      legendEl.innerHTML = "";
+
+      const dataset = groupData(metric, filterPlatform, filterPuzzle);
+      const usedModels = [...new Set(dataset.map(d => d.modelo))];
+
+      const {
+        margin,
+        width,
+        height,
+        xCats,
+        yMax,
+        xBandWidth,
+        innerPadding,
+        barPadding,
+        modelsOrder
+      } = computeScales(dataset);
+
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("transform", `translate(${margin.left},${margin.top})`);
+      svg.appendChild(g);
+
+      const axisGroupX = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      axisGroupX.setAttribute("class", "axis x-axis");
+      axisGroupX.setAttribute("transform", `translate(0,${height + 10})`);
+      g.appendChild(axisGroupX);
+
+      const axisGroupY = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      axisGroupY.setAttribute("class", "axis y-axis");
+      g.appendChild(axisGroupY);
+
+      const gridGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      gridGroup.setAttribute("class", "grid");
+      g.appendChild(gridGroup);
+
+      const yTicks = 5;
+      for (let i = 0; i <= yTicks; i++) {
+        const t = (i / yTicks) * yMax;
+        const y = height - (t / yMax) * height;
+
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", 0);
+        line.setAttribute("y1", y);
+        line.setAttribute("x2", width);
+        line.setAttribute("y2", y);
+        gridGroup.appendChild(line);
+
+        const tick = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        tick.setAttribute("x1", -4);
+        tick.setAttribute("y1", y);
+        tick.setAttribute("x2", 0);
+        tick.setAttribute("y2", y);
+        tick.setAttribute("stroke", "#6b574e");
+        tick.setAttribute("stroke-width", "1");
+        axisGroupY.appendChild(tick);
+
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.textContent = t.toFixed(2);
+        label.setAttribute("x", -8);
+        label.setAttribute("y", y + 3);
+        label.setAttribute("text-anchor", "end");
+        axisGroupY.appendChild(label);
+      }
+
+      xCats.forEach((cat, i) => {
+        const x = i * xBandWidth + xBandWidth / 2;
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.textContent = cat;
+        label.setAttribute("x", x);
+        label.setAttribute("y", 10);
+        label.setAttribute("text-anchor", "middle");
+        axisGroupX.appendChild(label);
+      });
+
+      const groupByPlatform = {};
+      dataset.forEach(d => {
+        if (!groupByPlatform[d.plataforma]) groupByPlatform[d.plataforma] = [];
+        groupByPlatform[d.plataforma].push(d);
+      });
+
+      xCats.forEach((platform, iCat) => {
+        const items = groupByPlatform[platform] || [];
+        const xStart = iCat * xBandWidth + xBandWidth * innerPadding / 2;
+        const availWidth = xBandWidth * (1 - innerPadding);
+        const nBars = modelsOrder.filter(m => items.some(d => d.modelo === m)).length;
+        const barW = nBars ? availWidth / nBars - barPadding * availWidth / nBars : 0;
+
+        let index = 0;
+        modelsOrder.forEach(modelName => {
+          const d = items.find(it => it.modelo === modelName);
+          if (!d) return;
+
+          const barHeight = (d.value / yMax) * height;
+          const x = xStart + index * (barW + barPadding * barW);
+          const y = height - barHeight;
+
+          const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          rect.setAttribute("class", "bar");
+          rect.setAttribute("x", x);
+          rect.setAttribute("y", y);
+          rect.setAttribute("width", barW);
+          rect.setAttribute("height", barHeight);
+          rect.setAttribute("fill", palette[modelName] || "#cccccc");
+
+          rect.addEventListener("mousemove", (evt) => {
+            const metricLabel = metric === "coste"
+              ? "Coste medio"
+              : metric === "tk_s"
+              ? "Tokens/s medio"
+              : "€/k tokens medio";
+
+            tooltip.style.opacity = 1;
+            tooltip.style.transform = "translateY(0)";
+            tooltip.style.left = (evt.clientX + 14) + "px";
+            tooltip.style.top = (evt.clientY + 10) + "px";
+            tooltip.innerHTML = `
+              <strong>${d.modelo}</strong><br/>
+              Plataforma: ${d.plataforma}<br/>
+              Muestras: ${d.muestras}<br/>
+              <div class="tooltip-row">
+                <span>${metricLabel}:</span>
+                <span>${d.value.toFixed(2)}</span>
+              </div>
+              <div class="tooltip-row">
+                <span>Tasa acierto:</span>
+                <span>${(d.tasaAcierto * 100).toFixed(0)}%</span>
+              </div>
+            `;
+          });
+
+          rect.addEventListener("mouseleave", () => {
+            tooltip.style.opacity = 0;
+            tooltip.style.transform = "translateY(4px)";
+          });
+
+          g.appendChild(rect);
+          index++;
+        });
+      });
+
+      usedModels.forEach(modelName => {
+        const item = document.createElement("div");
+        item.className = "legend-item";
+
+        const colorBox = document.createElement("span");
+        colorBox.className = "legend-color";
+        colorBox.style.background = palette[modelName] || "#ccc";
+
+        const text = document.createElement("span");
+        text.className = "legend-text";
+        text.textContent = modelName;
+
+        item.appendChild(colorBox);
+        item.appendChild(text);
+        legendEl.appendChild(item);
+      });
+
+      const metaLeft = document.getElementById("meta-left");
+      const metaRight = document.getElementById("meta-right");
+
+      const totalRows = data.filter(d =>
+        (filterPlatform === "ALL" || d.plataforma === filterPlatform) &&
+        (filterPuzzle === "ALL" || d.ACERTIJO === filterPuzzle)
+      ).length;
+
+      const metricText = metric === "coste"
+        ? "Coste (cuanto menor, mejor)"
+        : metric === "tk_s"
+        ? "Tokens por segundo (cuanto mayor, mejor)"
+        : "Coste por 1k tokens (cuanto menor, mejor)";
+
+      metaLeft.textContent = `${dataset.length} grupos modelo-plataforma, a partir de ${totalRows} ejecuciones filtradas.`;
+      metaRight.textContent = `Métrica actual: ${metricText}.`;
+    }
+
+    const platformSelect = document.getElementById("platformSelect");
+    const puzzleSelect = document.getElementById("puzzleSelect");
+    const metricSelect = document.getElementById("metricSelect");
+
+    function update() {
+      drawChart(
+        metricSelect.value,
+        platformSelect.value,
+        puzzleSelect.value
+      );
+    }
+
+    platformSelect.addEventListener("change", update);
+    puzzleSelect.addEventListener("change", update);
+    metricSelect.addEventListener("change", update);
+
+    update();
+  </script>
+</body>
+</html>
