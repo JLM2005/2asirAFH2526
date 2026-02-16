@@ -81,6 +81,7 @@
             border: 1px solid #f0bd8b;
             padding: 24px;
             color: #f0bd8b;
+            border-radius: 4px;
         }
         .cerrar {
             float: right;
@@ -90,12 +91,35 @@
             background: none;
             border: none;
         }
+        .ejercicio-link {
+            color: #ffc686;
+            text-decoration: none;
+            font-size: 1.1em;
+            display: block;
+            padding: 12px;
+            background: #292832;
+            border-radius: 4px;
+            border-left: 3px solid #f0bd8b;
+            transition: all 0.2s;
+        }
+        .ejercicio-link:hover {
+            background: #f0bd8b;
+            color: #222129;
+            transform: translateX(4px);
+        }
         .pdfview {
             width: 100%;
             height: 600px;
             margin-top:10px;
             border: 1px solid #f0bd8b;
             background: #131313;
+        }
+        .abrir-archivo {
+            background: #f0bd8b !important;
+            color: #fff !important;
+        }
+        .abrir-archivo:hover {
+            background: #f0bd8b !important;
         }
     </style>
 </head>
@@ -110,77 +134,91 @@
     <main>
         <section>
             <h2>Destilación de IA</h2>
-            <div class="fecha-autor">14/02/2026 :: Julio LM</div>
-            <p>Ejercicio Destilación de IA</p>
-            <button onclick="verEjercicio('ej1')">Ver ejercicio</button>
+            <div class="fecha-autor">16/02/2026 :: Julio LM</div>
+            <p>Destilación conocimiento IA (CPU TinyLlama) - Problemas CUDA resueltos</p>
+            <button onclick="verEjercicio('ej1')" class="abrir-archivo">Abrir Destilación IA</button>
             <div class="ejercicio" id="ej1">
-                <a href="trabajos/destilacion/destilacion.html" class="ejercicio-link">
-                <h3>Destilación de IA: Ejercicio</h3>
-              </a>
+                <button class="cerrar" onclick="cerrarEjercicio('ej1')">✕</button>
+                <a href="trabajos/destilacion/destilacion.html" target="_blank" class="ejercicio-link">
+                    📄 destilacion.html<br>
+                    <small>Entrenamiento CPU + KL divergence + métricas</small>
+                </a>
             </div>
         </section>
+
         <section>
             <h2>Agente IA local</h2>
             <div class="fecha-autor">14/02/2026 :: Julio LM</div>
-            <p>Ejercicio de Agente IA local</p>
-            <button onclick="verEjercicio('ej1')">Ver ejercicio</button>
-            <div class="ejercicio" id="ej1">
-                <a href="trabajos/Agente/agente.html" class="ejercicio-link">
-                <h3>Agente IA local: Ejercicio</h3>
-              </a>
+            <p>Agente IA ejecutándose localmente</p>
+            <button onclick="verEjercicio('ej2')" class="abrir-archivo">Abrir Agente IA</button>
+            <div class="ejercicio" id="ej2">
+                <button class="cerrar" onclick="cerrarEjercicio('ej2')">✕</button>
+                <a href="trabajos/Agente/agente.html" target="_blank" class="ejercicio-link">
+                    📄 agente.html<br>
+                    <small>Agente conversacional local</small>
+                </a>
             </div>
         </section>
+
         <section>
             <h2>Comparativa IA</h2>
             <div class="fecha-autor">13/12/2025 :: Julio LM</div>
-            <p>Ejercicio de Comparativa IA</p>
-            <button onclick="verEjercicio('ej1')">Ver ejercicio</button>
-            <div class="ejercicio" id="ej1">
-                <a href="trabajos/Comparativa ia/comparativa_ia.html" class="ejercicio-link">
-                <h3>Comparativa IA: Ejercicio</h3>
-              </a>
+            <p>Comparativa modelos IA</p>
+            <button onclick="verEjercicio('ej3')" class="abrir-archivo">Abrir Comparativa</button>
+            <div class="ejercicio" id="ej3">
+                <button class="cerrar" onclick="cerrarEjercicio('ej3')">✕</button>
+                <a href="trabajos/Comparativa ia/comparativa_ia.html" target="_blank" class="ejercicio-link">
+                    📄 comparativa_ia.html<br>
+                    <small>Análisis comparativo LLMs</small>
+                </a>
             </div>
         </section>
+
         <section>
             <h2>Conexión Remota</h2>
             <div class="fecha-autor">04/11/2025 :: Julio LM</div>
-            <p>Ejercicio de Conexión Remota</p>
-            <button onclick="verEjercicio('ej1')">Ver ejercicio</button>
-            <div class="ejercicio" id="ej1">
-                <a href="trabajos/Conexión remota/conexionremota.html" class="ejercicio-link">
-                <h3>Conexión Remota: Ejercicio</h3>
-              </a>
+            <p>SSH, RDP, AnyDesk configuración</p>
+            <button onclick="verEjercicio('ej4')" class="abrir-archivo">Abrir Conexión Remota</button>
+            <div class="ejercicio" id="ej4">
+                <button class="cerrar" onclick="cerrarEjercicio('ej4')">✕</button>
+                <a href="trabajos/Conexión remota/conexionremota.html" target="_blank" class="ejercicio-link">
+                    📄 conexionremota.html<br>
+                    <small>SSH Linux/Windows + RDP + AnyDesk</small>
+                </a>
             </div>
         </section>
+
         <section>
             <h2>Presupuesto Servidor IA</h2>
             <div class="fecha-autor">15/10/2025 :: Julio LM</div>
-            <p>Ejercicio de presupuesto y análisis para montar un servidor con IA.</p>
-            <button onclick="verEjercicio('ej1')">Ver ejercicio</button>
-            <div class="ejercicio" id="ej1">
-                <button class="cerrar" onclick="cerrarEjercicio('ej1')">✕</button>
+            <p>Análisis presupuesto servidor IA</p>
+            <button onclick="verEjercicio('ej5')" class="abrir-archivo">Abrir PDF</button>
+            <div class="ejercicio" id="ej5">
+                <button class="cerrar" onclick="cerrarEjercicio('ej5')">✕</button>
                 <h3>Presupuesto Servidor IA</h3>
                 <iframe class="pdfview" src="trabajos/PDF/Montar un servidor de IA.pdf"></iframe>
             </div>
         </section>
+
         <section>
             <h2>Montar y desmontar un servidor</h2>
             <div class="fecha-autor">15/10/2025 :: Julio LM</div>
-            <p>Tarea práctica de montaje y desmontaje de servidores en taller.</p>
-            <button onclick="verEjercicio('ej2')">Ver ejercicio</button>
-            <div class="ejercicio" id="ej2">
-                <button class="cerrar" onclick="cerrarEjercicio('ej2')">✕</button>
+            <p>Práctica taller servidores</p>
+            <button onclick="verEjercicio('ej6')" class="abrir-archivo">Abrir PDF</button>
+            <div class="ejercicio" id="ej6">
+                <button class="cerrar" onclick="cerrarEjercicio('ej6')">✕</button>
                 <h3>Montar y desmontar un servidor</h3>
                 <iframe class="pdfview" src="trabajos/PDF/Tarea 2ASIR. Desmontar y Montar un servidor y un portátil en el taller - JulioLuengo.pdf"></iframe>
             </div>
         </section>
+
         <section>
             <h2>Montar y desmontar un PC</h2>
             <div class="fecha-autor">15/10/2025 :: Julio LM</div>
-            <p>Tarea práctica de montaje y desmontaje de un PC en taller.</p>
-            <button onclick="verEjercicio('ej3')">Ver ejercicio</button>
-            <div class="ejercicio" id="ej3">
-                <button class="cerrar" onclick="cerrarEjercicio('ej3')">✕</button>
+            <p>Práctica taller PCs</p>
+            <button onclick="verEjercicio('ej7')" class="abrir-archivo">Abrir PDF</button>
+            <div class="ejercicio" id="ej7">
+                <button class="cerrar" onclick="cerrarEjercicio('ej7')">✕</button>
                 <h3>Montar y desmontar un PC</h3>
                 <iframe class="pdfview" src="trabajos/PDF/Tarea 2ASIR. Desmontar y Montar un PC en el taller - JulioLuengo.pdf"></iframe>
             </div>
@@ -188,14 +226,26 @@
     </main>
     <script>
         function verEjercicio(id) {
+            // Cerrar todos los ejercicios
             document.querySelectorAll('.ejercicio').forEach(function(div) {
                 div.style.display = 'none';
             });
+            // Abrir el ejercicio específico
             document.getElementById(id).style.display = 'block';
         }
+        
         function cerrarEjercicio(id) {
             document.getElementById(id).style.display = 'none';
         }
+
+        // Cerrar ejercicio al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.ejercicio') && !event.target.closest('button')) {
+                document.querySelectorAll('.ejercicio').forEach(function(div) {
+                    div.style.display = 'none';
+                });
+            }
+        });
     </script>
 </body>
 </html>
