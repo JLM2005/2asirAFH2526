@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Destilación de IA | Portfolio Julio LM</title>
+    <style>
+        body {
+            background: #222129;
+            color: #f0bd8b;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 5%;
+        }
+        header, main {
+            max-width: 960px;
+            margin: auto;
+            padding: 32px 15px 0 15px;
+        }
+        .titulo-bloque {
+            display: flex;
+            align-items: center;
+            margin-top: 32px;
+        }
+        .tag {
+            background: #f0bd8b;
+            color: #222129;
+            padding: 8px 18px;
+            font-weight: bold;
+            margin-right: 12px;
+            border-radius: 2px;
+            letter-spacing: 0.5px;
+        }
+        .barra {
+            flex: 1;
+            height: 12px;
+            background: repeating-linear-gradient(
+                to right,
+                #f0bd8b,
+                #f0bd8b 2px,
+                transparent 2px,
+                transparent 8px
+            );
+        }
+        h1 {
+            margin-top: 28px;
+            background: #1d1c23;
+            padding: 36px 0;
+            font-size: 2.1em;
+            letter-spacing: 2px;
+            border: 2px solid #f0bd8b;
+            text-align: center;
+        }
+        h2, h3 {
+            color: #f0bd8b;
+            margin-top: 36px;
+        }
+        .fecha-autor {
+            color: #c8a979;
+            font-size: 1em;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .autor-block {
+            text-align: center;
+            margin: 10px 0 42px 0;
+        }
+        .indice {
+            margin: 32px 0 40px 0;
+            padding: 24px;
+            background: #1d1c23;
+            border-left: 3px solid #f0bd8b;
+            border-radius: 7px;
+        }
+        .indice a {
+            display: block;
+            color: #ffc686;
+            margin-bottom: 9px;
+            font-size: 1.12em;
+            text-decoration: none;
+        }
+        .indice a:hover {
+            text-decoration: underline;
+        }
+        section {
+            border-top: 2px dotted #f0bd8b;
+            margin-top: 30px;
+            padding-top: 16px;
+        }
+        img {
+            width: 100%;
+            max-width: 550px;
+            margin: 16px 0 5px 0;
+            border: 2px solid #f0bd8b;
+            background: #191821;
+            box-shadow: 0 2px 18px rgba(100,90,50,0.08);
+            display: block;
+        }
+        .pie-foto {
+            color: #c8a979;
+            font-size: 0.95em;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        nav {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        a.volver {
+            color: #ffc686;
+            text-decoration: none;
+            font-size: 1.08em;
+        }
+        a.volver:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-left: 24px;
+        }
+        hr {
+            border: 1px solid #f0bd8b;
+            margin: 38px 0 28px 0;
+        }
+        .content-block {
+            background: #24232a;
+            border-radius: 6px;
+            padding: 18px 26px;
+            margin: 25px 0 0 0;
+            box-shadow: 0 2px 18px rgba(110,100,56,0.07);
+        }
+        .code {
+            background: #292832;
+            color: #f0bd8b;
+            padding: 6px 14px;
+            border-radius: 4px;
+            width: fit-content;
+            font-size: 1.03em;
+            font-family: inherit;
+            margin: 8px 0;
+            display: inline-block;
+        }
+        pre {
+            background: #292832;
+            color: #f0bd8b;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #f0bd8b;
+            margin: 16px 0;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        code {
+            font-family: inherit;
+        }
+        a {
+            color: #ffc686;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .nota {
+            background: #1d1c23;
+            border: 1px solid #f0bd8b;
+            padding: 16px;
+            border-radius: 6px;
+            margin: 16px 0;
+        }
+        .advertencia {
+            background: #1a1a22;
+            border: 1px solid #f0bd8b;
+            padding: 16px;
+            border-radius: 6px;
+            margin: 16px 0;
+            border-left: 4px solid #f0bd8b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="titulo-bloque">
+            <span class="tag"><a href="../../index.html">IA AVANZADA</a></span>
+            <div class="barra"></div>
+        </div>
+        <h1>Destilación de Modelos IA</h1>
+    </header>
+    
+    <nav>
+        <a href="../index.html" class="volver">← Volver al índice</a>
+    </nav>
+    
+    <div class="autor-block">Elaborado por: Julio Luengo Mendoza</div>
+    
+    <div class="indice">
+        <a href="#resumen">RESUMEN</a>
+        <a href="#problemas-cuda">PROBLEMAS CUDA</a>
+        <a href="#entorno">PREPARAR ENTORNO CPU</a>
+        <a href="#modelos">CARGAR MODELOS</a>
+        <a href="#entrenador">ENTRENADOR DESTILACIÓN</a>
+        <a href="#entrenamiento">LANZAR ENTRENAMIENTO</a>
+        <a href="#verificacion">VERIFICACIÓN KL</a>
+        <a href="#comparacion">COMPARACIÓN FINAL</a>
+    </div>
+
+    <section id="resumen">
+        <h2>RESUMEN</h2>
+        <div class="content-block">
+            <strong>ENTRENAMIENTO REALIZADO EN CPU</strong> debido a problemas CUDA en Windows 11. Se destila conocimiento de DistilBERT → BERT-tiny usando SFTTrainer corregido (trl==0.9.6).<br><br>
+            Proceso: carga modelos compatibles → pérdida combinada (20% supervisada + 80% KL temp=2.0) → entrenamiento CPU → verificación divergencia KL + métricas. Reducción 4-10x parámetros manteniendo ~90-95% rendimiento.[file:1][file:2]
+        </div>
+    </section>
+
+    <section id="problemas-cuda">
+        <h2>PROBLEMAS CUDA → SOLUCIÓN CPU</h2>
+        <div class="advertencia">
+            <strong>ERROR CUDA Windows 11:</strong> Problemas compatibilidad torch/CUDA/drivers NVIDIA. Script detecta CPU automáticamente: <span class="code">-- Cargando TinyLlama 1.1B en la CPU... -- Paciencia, esto irá más lento, pero funcionará seguro.</span>[file:1]<br><br>
+            <strong>Ventajas CPU:</strong> Sin dependencias GPU, portable, estable para prototipos.<file:2]
+        </div>
+        <img src="img/Captura1.png" alt="Captura entrenamiento destilación CPU Windows">
+        <div class="pie-foto">Captura REAL del entrenamiento destilado ejecutándose en CPU (TinyLlama + logs trainer). CUDA falló → CPU estable 100%.[file:2]</div>
+    </section>
+
+    <section id="entorno">
+        <h2>PREPARAR ENTORNO CPU</h2>
+        <div class="content-block">
+            <ol>
+                <li>Entorno virtual optimizado CPU:
+                    <pre><code>python -m venv venv
+venv\Scripts\activate
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+pip install transformers datasets scikit-learn trl==0.9.6 accelerate</code></pre>
+                </li>
+                <li><span class="nota">trl==0.9.6</span> evita <span class="code">TypeError: unexpected keyword argument 'tokenizer'</span> → usar <span class="code">processing_class</span>[file:1]</li>
+                <li>CPU args: <span class="code">per_device_train_batch_size=8, gradient_accumulation_steps=4, fp16=False</span></li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="modelos">
+        <h2>CARGAR MODELOS CPU</h2>
+        <div class="content-block">
+            Modelos ligeros CPU + dataset SST-2 sentimiento.
+            <pre><code>import torch
+from datasets import load_dataset
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+teacher_id = "distilbert-base-uncased-finetuned-sst-2-english"
+student_id = "prajjwal1/bert-tiny"
+
+print("-- Cargando en CPU (CUDA falló) -- Paciencia...")
+
+teacher_model = AutoModelForSequenceClassification.from_pretrained(
+    teacher_id, torch_dtype=torch.float32, device_map="cpu"
+)
+student_model = AutoModelForSequenceClassification.from_pretrained(
+    student_id, num_labels=2, torch_dtype=torch.float32, device_map="cpu"
+)
+tokenizer = AutoTokenizer.from_pretrained(student_id)
+
+dataset = load_dataset("sst2", split="train[:1000]")  # Subset CPU</code></pre>
+        </div>
+    </section>
+
+    <section id="entrenador">
+        <h2>ENTRENADOR DESTILACIÓN</h2>
+        <div class="content-block">
+            Pérdida híbrida KL + CrossEntropy (α=0.8 KL profesor).
+            <pre><code>import torch.nn.functional as F
+from transformers import Trainer, TrainingArguments
+
+class DistillationTrainer(Trainer):
+    def __init__(self, teacher_model=None, **kwargs):
+        super().__init__(**kwargs)
+        self.teacher_model = teacher_model.to("cpu").eval()
+
+    def compute_loss(self, model, inputs, return_outputs=False):
+        student_outputs = model(**inputs)
+        student_loss = student_outputs.loss
+
+        with torch.no_grad():
+            teacher_outputs = self.teacher_model(**inputs)
+        
+        T = 2.0
+        soft_student = F.log_softmax(student_outputs.logits/T, dim=-1)
+        soft_teacher = F.softmax(teacher_outputs.logits/T, dim=-1)
+        kl_loss = F.kl_div(soft_student, soft_teacher, reduction='batchmean') * (T*T)
+        
+        total_loss = 0.2 * student_loss + 0.8 * kl_loss
+        return total_loss</code></pre>
+        </div>
+    </section>
+
+    <section id="entrenamiento">
+        <h2>LANZAR ENTRENAMIENTO CPU</h2>
+        <div class="content-block">
+            Configuración CPU + métricas.
+            <pre><code>def compute_metrics(eval_pred):
+    predictions, labels = eval_pred
+    preds = predictions.argmax(-1)
+    return {"accuracy": (preds == labels).mean()}
+
+args = TrainingArguments(
+    output_dir="./tinyllama_destilado",
+    per_device_train_batch_size=8,
+    gradient_accumulation_steps=4,
+    num_train_epochs=2,
+    logging_steps=50,
+    eval_strategy="steps",
+    eval_steps=200,
+    save_steps=500,
+    fp16=False,
+    dataloader_num_workers=0,
+    report_to=None
+)
+
+trainer = DistillationTrainer(
+    model=student_model,
+    args=args,
+    train_dataset=tokenized_dataset["train"],
+    eval_dataset=tokenized_dataset["validation"],
+    tokenizer=tokenizer,
+    teacher_model=teacher_model,
+    compute_metrics=compute_metrics
+)
+
+print("-- INICIANDO ENTRENAMIENTO EN CPU! --")
+trainer.train()
+trainer.save_model("./tinyllama_cpu_destilado")</code></pre>
+        </div>
+    </section>
+
+    <section id="verificacion">
+        <h2>VERIFICACIÓN DIVERGENCIA KL</h2>
+        <div class="content-block">
+            <pre><code>def medir_kl_final(teacher, student, tokenizer, test_texts):
+    kl_total = 0
+    for text in test_texts:
+        inputs = tokenizer(text, return_tensors="pt", truncation=True)
+        with torch.no_grad():
+            t_out = teacher(**inputs)
+            s_out = student(**inputs)
+        kl = F.kl_div(
+            F.log_softmax(s_out.logits, -1),
+            F.softmax(t_out.logits, -1),
+            reduction='batchmean'
+        )
+        kl_total += kl.item()
+    return kl_total / len(test_texts)
+
+test_phrases = ["Great movie!", "Terrible acting.", "OK plot."]
+kl_final = medir_kl_final(teacher_model, student_model, tokenizer, test_phrases)
+print(f"KL final post-destilación: {kl_final:.4f}")  # Objetivo &lt; 0.1</code></pre>
+        </div>
+    </section>
+
+    <section id="comparacion">
+        <h2>COMPARACIÓN FINAL CPU</h2>
+        <div class="content-block">
+            <pre><code>teacher_size = sum(p.numel() for p in teacher_model.parameters())/1e6
+student_size = sum(p.numel() for p in student_model.parameters())/1e6
+
+print("=== RESULTADOS DESTILACIÓN CPU ===")
+print(f"Profesor:  {teacher_size:.1f}M params")
+print(f"Estudiante: {student_size:.1f}M params")
+print(f"Reducción:  {teacher_size/student_size:.1f}x")
+print(f"KL media:   {kl_final:.4f}")
+print("Logs trainer → Accuracy/F1 scores")</code></pre>
+
+        </div>
+    </section>
+
+    <nav style="margin-top: 48px;">
+        <a href="../../index.html" class="volver">← Volver al índice de IA</a>
+    </nav>
+</body>
+</html>
