@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!--Elaborado por Julio Luengo Mendoza-->
+    <meta charset="UTF-8">
+    <title>Agente IA local x Julio Luengo Mendoza</title>
+    <style>
+        body {
+            background: #222129;
+            color: #f0bd8b;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+        }
+        header, main {
+            max-width: 900px;
+            margin: auto;
+            padding: 32px 0;
+        }
+        .titulo-bloque {
+            display: flex;
+            align-items: center;
+        }
+        .tag {
+            background: #f0bd8b;
+            color: #222129;
+            padding: 8px 18px;
+            font-weight: bold;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+        .barra {
+            flex: 1;
+            height: 12px;
+            background: repeating-linear-gradient(
+                to right,
+                #f0bd8b,
+                #f0bd8b 2px,
+                transparent 2px,
+                transparent 8px
+            );
+        }
+        h1 {
+            margin-top: 32px;
+            background: #1d1c23;
+            padding: 48px;
+            font-size: 2em;
+            border: 2px solid #f0bd8b;
+        }
+        section {
+            border-top: 2px solid #f0bd8b;
+            margin-top: 32px;
+            padding-top: 24px;
+        }
+        h2 {
+            color: #f0bd8b;
+        }
+        .fecha-autor {
+            color: #c8a979;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #f0bd8b;
+            color: #222129;
+            border: none;
+            padding: 8px 18px;
+            font-family: inherit;
+            font-size: 1em;
+            border-radius: 2px;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #ffc686;
+        }
+        .ejercicio {
+            display: none;
+            margin-top: 20px;
+            background: #1d1c23;
+            border: 1px solid #f0bd8b;
+            padding: 24px;
+            color: #f0bd8b;
+        }
+        .cerrar {
+            float: right;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #ffc686;
+            background: none;
+            border: none;
+        }
+        .imgview {
+            width: 100%;
+            margin-top: 10px;
+            border: 1px solid #f0bd8b;
+            background: #131313;
+        }
+        .codigo {
+            white-space: pre-wrap;
+            background: #131018;
+            border: 1px solid #f0bd8b;
+            padding: 12px;
+            font-size: 0.9em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="titulo-bloque">
+        <span class="tag">EJERCICIOS AFH</span>
+        <div class="barra"></div>
+    </div>
+    <h1>Agente con IA local (Windows 11 + RTX 5060 Ti) x Julio Luengo Mendoza</h1>
+</header>
+<main>
+    <!-- SECCIÓN 1: OBJETIVO -->
+    <section>
+        <h2>Objetivo de la práctica</h2>
+        <div class="fecha-autor">23/01/2026 :: Julio LM</div>
+        <p>
+            Configurar y utilizar un agente con una IA local que se ejecute en la GPU NVIDIA GeForce RTX 5060 Ti
+            (12 GB de VRAM) sobre Windows 11, empleando un modelo expuesto mediante una API compatible con OpenAI
+            (por ejemplo Ollama) y accesible desde OpenCode u otro agente similar.
+        </p>
+        <button onclick="verEjercicio('ej1')">Ver desarrollo</button>
+        <div class="ejercicio" id="ej1">
+            <button class="cerrar" onclick="cerrarEjercicio('ej1')">✕</button>
+            <h3>Descripción general</h3>
+            <p>
+                La práctica consiste en levantar un servicio de modelo de lenguaje local, conectarlo a un agente
+                (OpenCode/Kilo Code) y documentar todo el proceso, incluyendo evidencias de que el modelo se está
+                ejecutando realmente en la GPU local.
+            </p>
+            <ul>
+                <li>Entorno: Windows 11.</li>
+                <li>Hardware: NVIDIA GeForce RTX 5060 Ti con 12 GB de VRAM.</li>
+                <li>Agente: OpenCode (aunque también se ha probado Kilo Code).</li>
+                <li>Backend IA: servidor local compatible con OpenAI (Ollama) en <code>http://192.168.7.114:11434/v1</code>.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 2: REQUISITOS PREVIOS -->
+    <section>
+        <h2>Requisitos previos</h2>
+        <div class="fecha-autor">23/01/2026 :: Julio LM</div>
+        <p>Antes de configurar el agente es necesario preparar el entorno de sistema y software.</p>
+        <button onclick="verEjercicio('ej2')">Ver requisitos</button>
+        <div class="ejercicio" id="ej2">
+            <button class="cerrar" onclick="cerrarEjercicio('ej2')">✕</button>
+            <h3>Hardware y sistema</h3>
+            <ol>
+                <li>Disponer de un PC con Windows 11 instalado y actualizado.</li>
+                <li>Contar con una tarjeta gráfica NVIDIA GeForce RTX 5060 Ti (12 GB VRAM) correctamente reconocida por el sistema.</li>
+                <li>Instalar los drivers NVIDIA (Game Ready o Studio) y comprobar que Windows detecta la GPU en el Administrador de tareas.</li>
+            </ol>
+            <h3>Software necesario</h3>
+            <ol>
+                <li>Instalar un servidor de modelos local compatible con la API de OpenAI, por ejemplo Ollama.</li>
+                <li>Instalar OpenCode (u otro agente) en el usuario de Windows donde se realizará la práctica.</li>
+                <li>Verificar conectividad en la red local con la IP que expone el servidor de modelos
+                    (<code>192.168.7.114</code> en este caso) y el puerto <code>11434</code>.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 3: CONFIGURACIÓN DEL SERVIDOR IA -->
+    <section>
+        <h2>Configuración del servidor IA local</h2>
+        <div class="fecha-autor">23/01/2026 :: Julio LM</div>
+        <p>En esta parte se explica cómo preparar el servidor de IA local para que el agente pueda usarlo.</p>
+        <button onclick="verEjercicio('ej3')">Ver pasos</button>
+        <div class="ejercicio" id="ej3">
+            <button class="cerrar" onclick="cerrarEjercicio('ej3')">✕</button>
+            <h3>Puesta en marcha del modelo</h3>
+            <ol>
+                <li>Instalar Ollama en Windows 11.</li>
+                <li>Descargar el modelo local (por ejemplo <code>gpt-oss:20b</code> o similar) mediante Ollama.</li>
+                <li>Iniciar el servicio de Ollama para que escuche peticiones en <code>http://192.168.7.114:11434/v1</code>
+                    o en la IP/puerto que corresponda.</li>
+                <li>Realizar una prueba simple desde la línea de comandos o desde una herramienta HTTP para comprobar
+                    que la API responde correctamente.</li>
+            </ol>
+            <p>
+                El servidor expone endpoints compatibles con OpenAI (<code>/v1/models</code>, <code>/v1/chat/completions</code>, etc.),
+                lo que permite que aplicaciones como OpenCode lo utilicen como si fuera un proveedor externo.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 4: CONFIGURACIÓN DE OPENCODE -->
+    <section>
+        <h2>Configuración del agente (OpenCode)</h2>
+        <div class="fecha-autor">23/01/2026 :: Julio LM</div>
+        <p>OpenCode se configura con un archivo <code>opencode.json</code> en el directorio del usuario o del proyecto.</p>
+        <button onclick="verEjercicio('ej4')">Ver configuración</button>
+        <div class="ejercicio" id="ej4">
+            <button class="cerrar" onclick="cerrarEjercicio('ej4')">✕</button>
+            <h3>Archivo opencode.json</h3>
+            <p>Se ha utilizado la siguiente configuración para que OpenCode se conecte al servidor Ollama local:</p>
+            <div class="codigo">
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://192.168.7.114:11434/v1"
+      },
+      "models": {
+        "gpt-oss:20b": {
+          "name": "gpt-oss:20b"
+        }
+      }
+    }
+  }
+}
+            </div>
+            <h3>Ubicación y uso</h3>
+            <ul>
+                <li>El archivo <code>opencode.json</code> se guarda en el directorio de configuración de OpenCode
+                    o en la carpeta del proyecto.</li>
+                <li>Al iniciar OpenCode, el agente detecta el proveedor llamado <strong>Ollama (local)</strong>
+                    y el modelo <code>gpt-oss:20b</code>.</li>
+                <li>Desde la interfaz de OpenCode se realizan las peticiones utilizando este modelo local en vez de un proveedor en la nube.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 5: PRUEBA DEL AGENTE E IMÁGENES -->
+    <section>
+        <h2>Prueba del agente e evidencias</h2>
+        <div class="fecha-autor">23/01/2026 :: Julio LM</div>
+        <p>Una vez configurado el agente, se realizan pruebas de funcionamiento y se capturan evidencias.</p>
+        <button onclick="verEjercicio('ej5')">Ver pruebas e imágenes</button>
+        <div class="ejercicio" id="ej5">
+            <button class="cerrar" onclick="cerrarEjercicio('ej5')">✕</button>
+            <h3>Prueba de funcionamiento</h3>
+            <ol>
+                <li>Abrir OpenCode y seleccionar el modelo configurado en <code>opencode.json</code>.</li>
+                <li>Realizar una petición sencilla al agente, por ejemplo: <em>“Dime dos colores”</em>.</li>
+                <li>Confirmar que el modelo responde sin errores de conexión ni de proveedor.</li>
+                <li>Observar la latencia de respuesta y la calidad del texto generado.</li>
+            </ol>
+            <h3>Uso de la GPU en Windows 11</h3>
+            <ol>
+                <li>Abrir el Administrador de tareas de Windows (Ctrl+Shift+Esc).</li>
+                <li>Ir a la pestaña <strong>Rendimiento</strong> y seleccionar la GPU NVIDIA GeForce RTX 5060 Ti.</li>
+                <li>Lanzar una nueva petición desde el agente y comprobar que las gráficas de uso de GPU y memoria de GPU aumentan durante la generación.</li>
+            </ol>
+            <h3>Capturas de pantalla</h3>
+            <p>A continuación se incluyen las dos imágenes requeridas en la práctica:</p>
+            <figure>
+                <img class="imgview" src="img/Captura2.png" alt="Interfaz del agente con IA local y administrador de tareas mostrando GPU">
+                <figcaption>Figura 1: Interacción con el agente y monitorización de GPU en Windows 11.</figcaption>
+            </figure>
+            <figure>
+                <img class="imgview" src="img/Captura1.png" alt="Logs detallados del backend de IA local">
+                <figcaption>Figura 2: Logs del backend (peticiones /v1, tiempos y uso de memoria) durante la inferencia.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 6: CONCLUSIONES -->
+    <section>
+        <h2>Conclusiones</h2>
+        <div class="fecha-autor">23/01/2026 :: Julio LM</div>
+        <p>En esta última sección se resume el resultado de la práctica.</p>
+        <button onclick="verEjercicio('ej6')">Ver conclusiones</button>
+        <div class="ejercicio" id="ej6">
+            <button class="cerrar" onclick="cerrarEjercicio('ej6')">✕</button>
+            <h3>Valoración final</h3>
+            <ul>
+                <li>Se ha conseguido usar un agente de desarrollo (OpenCode) conectado a un modelo local ejecutándose en la GPU NVIDIA RTX 5060 Ti.</li>
+                <li>Gracias a la compatibilidad de Ollama con la API de OpenAI, la integración con el agente es directa mediante <code>baseURL</code>.</li>
+                <li>El uso del Administrador de tareas de Windows permite verificar de forma visual el uso de GPU y memoria de vídeo durante las inferencias.</li>
+                <li>El entorno resultante permite trabajar con modelos de IA de forma local, sin depender de servicios en la nube.</li>
+            </ul>
+        </div>
+    </section>
+</main>
+<script>
+    function verEjercicio(id) {
+        document.querySelectorAll('.ejercicio').forEach(function(div) {
+            div.style.display = 'none';
+        });
+        document.getElementById(id).style.display = 'block';
+    }
+    function cerrarEjercicio(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+</script>
+</body>
+</html>
