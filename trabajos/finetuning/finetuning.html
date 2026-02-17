@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!--Elaborado por Julio Luengo Mendoza-->
+    <meta charset="UTF-8">
+    <title>Fine-tuning de una IA | Portfolio Julio LM</title>
+    <style>
+        body {
+            background: #222129;
+            color: #f0bd8b;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 5%;
+        }
+        header, main {
+            max-width: 960px;
+            margin: auto;
+            padding: 32px 15px 0 15px;
+        }
+        .titulo-bloque {
+            display: flex;
+            align-items: center;
+            margin-top: 32px;
+        }
+        .tag {
+            background: #f0bd8b;
+            color: #222129;
+            padding: 8px 18px;
+            font-weight: bold;
+            margin-right: 12px;
+            border-radius: 2px;
+            letter-spacing: 0.5px;
+        }
+        .barra {
+            flex: 1;
+            height: 12px;
+            background: repeating-linear-gradient(
+                to right,
+                #f0bd8b,
+                #f0bd8b 2px,
+                transparent 2px,
+                transparent 8px
+            );
+        }
+        h1 {
+            margin-top: 28px;
+            background: #1d1c23;
+            padding: 36px 0;
+            font-size: 2.1em;
+            letter-spacing: 2px;
+            border: 2px solid #f0bd8b;
+            text-align: center;
+        }
+        h2, h3 {
+            color: #f0bd8b;
+            margin-top: 36px;
+        }
+        .fecha-autor {
+            color: #c8a979;
+            font-size: 1em;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .autor-block {
+            text-align: center;
+            margin: 10px 0 42px 0;
+        }
+        .indice {
+            margin: 32px 0 40px 0;
+            padding: 24px;
+            background: #1d1c23;
+            border-left: 3px solid #f0bd8b;
+            border-radius: 7px;
+        }
+        .indice a {
+            display: block;
+            color: #ffc686;
+            margin-bottom: 9px;
+            font-size: 1.12em;
+            text-decoration: none;
+        }
+        .indice a:hover {
+            text-decoration: underline;
+        }
+        section {
+            border-top: 2px dotted #f0bd8b;
+            margin-top: 30px;
+            padding-top: 16px;
+        }
+        img {
+            width: 100%;
+            max-width: 550px;
+            margin: 16px 0 5px 0;
+            border: 2px solid #f0bd8b;
+            background: #191821;
+            box-shadow: 0 2px 18px rgba(100,90,50,0.08);
+            display: block;
+        }
+        .pie-foto {
+            color: #c8a979;
+            font-size: 0.95em;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        nav {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        a.volver {
+            color: #ffc686;
+            text-decoration: none;
+            font-size: 1.08em;
+        }
+        a.volver:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-left: 24px;
+        }
+        hr {
+            border: 1px solid #f0bd8b;
+            margin: 38px 0 28px 0;
+        }
+        .content-block {
+            background: #24232a;
+            border-radius: 6px;
+            padding: 18px 26px;
+            margin: 25px 0 0 0;
+            box-shadow: 0 2px 18px rgba(110,100,56,0.07);
+        }
+        .code {
+            background: #292832;
+            color: #f0bd8b;
+            padding: 6px 14px;
+            border-radius: 4px;
+            width: fit-content;
+            font-size: 1.03em;
+            font-family: inherit;
+            margin: 8px 0;
+            display: inline-block;
+        }
+        pre {
+            background: #292832;
+            color: #f0bd8b;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #f0bd8b;
+            margin: 16px 0;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .codigo {
+            white-space: pre-wrap;
+            background: #292832;
+            border-left: 3px solid #f0bd8b;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 6px;
+            font-size: 0.92em;
+        }
+        a {
+            color: #ffc686;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .nota {
+            background: #1d1c23;
+            border: 1px solid #f0bd8b;
+            padding: 16px;
+            border-radius: 6px;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="titulo-bloque">
+            <span class="tag"><a href="../../index.html">IA AVANZADA</a></span>
+            <div class="barra"></div>
+        </div>
+        <h1>Fine-tuning de un Modelo IA</h1>
+    </header>
+    
+    <nav>
+        <a href="../../index.html" class="volver">← Volver al índice</a>
+    </nav>
+    
+    <div class="autor-block">Elaborado por: Julio Luengo Mendoza</div>
+    
+    <div class="indice">
+        <a href="#objetivo">OBJETIVO</a>
+        <a href="#wsl">WSL2 Y ENTORNO</a>
+        <a href="#dataset">CREAR DATASET</a>
+        <a href="#config">CONFIGURACIÓN LORA</a>
+        <a href="#entrenamiento">LANZAR ENTRENAMIENTO</a>
+        <a href="#pruebas">PRUEBAS DEL MODELO</a>
+    </div>
+
+    <section id="objetivo">
+        <h2>OBJETIVO</h2>
+        <div class="content-block">
+            Realizar fine-tuning de <strong>Mistral-7B-v0.1</strong> usando LoRA 4 bits sobre un pequeño dataset de estilo formal. El resultado es un modelo especializado que responde de forma educada y objetiva.
+        </div>
+    </section>
+
+    <section id="wsl">
+        <h2>INSTALACIÓN WSL2 Y ENTORNO</h2>
+        <div class="content-block">
+            <h3>Habilitar WSL2</h3>
+            <pre><code>wsl --install -d Ubuntu
+sudo apt update
+sudo apt upgrade -y</code></pre>
+            <h3>Crear proyecto y entorno virtual</h3>
+            <pre><code>mkdir mi-finetuning
+cd mi-finetuning
+sudo apt install -y python3 python3-venv
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip</code></pre>
+            <img src="img/Captura1.png" alt="Creación carpeta mi-finetuning y venv">
+            <div class="pie-foto">Figura 1: Creación carpeta mi-finetuning y activación del entorno virtual en Ubuntu WSL2.</div>
+            <img src="img/Captura2.png" alt="Actualización pip dentro de venv">
+            <div class="pie-foto">Figura 2: Actualización de pip a la versión 25.3 en el entorno virtual.</div>
+        </div>
+    </section>
+
+    <section id="dataset">
+        <h2>CREAR DATASET FORMAL</h2>
+        <div class="content-block">
+            <h3>Formato JSONL tipo Alpaca</h3>
+            <p>Cada línea contiene campos <span class="code">instruction</span> y <span class="code">output</span> para preguntas y respuestas formales sobre alumnos de 2º de ASIR.</p>
+            <pre><code>nano datos_asistente_formal.jsonl</code></pre>
+            <img src="img/Captura3.png" alt="Ejemplo datos_asistente_formal.jsonl">
+            <div class="pie-foto">Figura 3: Dataset con pares instruction/output sobre alumnos de 2º de ASIR.</div>
+            <div class="nota">
+                Ejemplos de instrucciones: "¿Quién son los alumnos de 2º ASIR?".
+            </div>
+        </div>
+    </section>
+
+    <section id="config">
+        <h2>CONFIGURACIÓN DEL FINE-TUNING (LORA)</h2>
+        <div class="content-block">
+            <h3>Archivo config_formal.yml</h3>
+            <pre class="codigo">base_model: mistralai/Mistral-7B-v0.1
+model_type: MistralForCausalLM
+tokenizer_type: LlamaTokenizer
+
+load_in_4bit: true
+adapter: lora
+
+datasets:
+  - path: datos_asistente_formal.jsonl
+    type: alpaca
+dataset_prepared_path: last_run_prepared
+val_set_size: 0.05
+
+sequence_len: 1024
+sample_packing: true
+pad_to_sequence_len: true
+
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target_modules:
+  - q_proj
+  - v_proj
+
+num_epochs: 3
+micro_batch_size: 1
+gradient_accumulation_steps: 2
+learning_rate: 0.0002
+optimizer: adamw_bnb_8bit
+lr_scheduler: cosine
+
+output_dir: ./outputs/modelo-formal</pre>
+            <img src="img/Captura4.png" alt="config_formal.yml en nano">
+            <div class="pie-foto">Figura 4: Configuración LoRA en 4 bits para Mistral-7B (r=16, alpha=32, dropout=0.05).</div>
+        </div>
+    </section>
+
+    <section id="entrenamiento">
+        <h2>LANZAR ENTRENAMIENTO</h2>
+        <div class="content-block">
+            <h3>Instalar framework de fine-tuning</h3>
+            <pre><code>pip install unsloth[qwen,mistral,train]</code></pre>
+            <h3>Ejecutar fine-tuning</h3>
+            <pre><code>accelerate launch -m unsloth.run config_formal.yml</code></pre>
+            <p>Con <span class="code">load_in_4bit: true</span> el modelo base se carga cuantizado a 4 bits y el adapter LoRA añade unas pocas capas entrenables usando muy poca VRAM.</p>
+        </div>
+    </section>
+
+    <section id="pruebas">
+        <h2>PRUEBAS DEL MODELO AJUSTADO</h2>
+        <div class="content-block">
+            <h3>Exportar y cargar en LM Studio</h3>
+            <ul>
+                <li>Fusionar LoRA con el modelo base o exportar un GGUF para LM Studio.</li>
+                <li>Cargar modelo en LM Studio con el nombre <span class="code">finetuning-asir-2</span>.</li>
+            </ul>
+            <h3>Ejemplo de respuesta especializada</h3>
+            <img src="img/Captura5.png" alt="Respuesta modelo finetuning-asir-2">
+            <div class="pie-foto">Figura 5: El modelo ajustado responde sobre “alumnos de 2º ASIR” usando la información del dataset propio.</div>
+            <p>Se observa que el modelo mantiene el estilo formal y repite la estructura del dataset, demostrando que el fine-tuning ha modificado su comportamiento hacia el dominio concreto.</p>
+        </div>
+    </section>
+
+    <nav style="margin-top: 48px;">
+        <a href="../../index.html" class="volver">← Volver al índice IA</a>
+    </nav>
+</body>
+</html>
