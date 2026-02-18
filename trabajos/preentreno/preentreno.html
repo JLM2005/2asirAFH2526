@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Manual Nano-Quijote x Julio Luengo Mendoza</title>
+<style>
+    body { background: #222129; color: #f0bd8b; font-family: 'Courier New', Courier, monospace; margin: 0; scroll-behavior: smooth; }
+    header, main { max-width: 900px; margin: auto; padding: 32px 20px; }
+    
+    .titulo-bloque { display: flex; align-items: center; }
+    .tag { background: #f0bd8b; color: #222129; padding: 8px 18px; font-weight: bold; margin-right: 12px; border-radius: 2px; }
+    .barra { flex: 1; height: 12px; background: repeating-linear-gradient(to right, #f0bd8b, #f0bd8b 2px, transparent 2px, transparent 8px); }
+    
+    h1 { margin-top: 32px; background: #1d1c23; padding: 48px; font-size: 1.8em; border: 2px solid #f0bd8b; text-align: center; }
+
+    .volver { display: inline-block; margin-top: 20px; color: #ffc686; text-decoration: none; font-size: 0.9em; transition: transform 0.2s; }
+    .volver:hover { transform: translateX(-5px); color: #f0bd8b; }
+
+    .indice-contenedor { background: #1d1c23; border: 1px solid #f0bd8b; padding: 24px; margin: 32px 0; border-radius: 4px; }
+    .indice-titulo { font-weight: bold; margin-bottom: 15px; display: block; color: #ffc686; text-transform: uppercase; letter-spacing: 2px; }
+    .indice-lista { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .indice-item a { color: #f0bd8b; text-decoration: none; font-size: 0.9em; transition: all 0.2s; display: block; padding: 5px; }
+    .indice-item a:hover { background: #f0bd8b; color: #222129; padding-left: 15px; }
+
+    section { border-top: 2px solid #f0bd8b; margin-top: 60px; padding-top: 24px; }
+    h2 { color: #ffc686; margin-bottom: 15px; }
+    .highlight { color: #fff; font-weight: bold; background: #444; padding: 0 4px; }
+    
+    .code-box { background: #131313; border-left: 4px solid #f0bd8b; padding: 20px; margin: 20px 0; font-size: 0.85em; color: #c8a979; overflow-x: auto; white-space: pre; }
+
+    .explicacion-visual { display: flex; flex-direction: column; gap: 20px; margin: 25px 0; }
+    .texto-tecnico { background: #1d1c23; padding: 20px; border-left: 3px solid #f0bd8b; font-size: 0.95em; line-height: 1.6; }
+    
+    .img-frame { border: 1px solid #333; background: #131313; padding: 10px; text-align: center; }
+    .img-frame img { max-width: 100%; height: auto; border: 1px solid #f0bd8b; transition: transform 0.4s ease; cursor: zoom-in; }
+    .img-frame img:hover { transform: scale(1.02); }
+    .img-caption { display: block; margin-top: 10px; font-size: 0.75em; color: #ffc686; text-transform: uppercase; }
+
+    footer { text-align: center; padding: 40px; font-size: 0.8em; color: #666; }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="titulo-bloque">
+        <span class="tag">TRAINING LOG: QUIJOTE-GPT</span>
+        <div class="barra"></div>
+    </div>
+    <a href="../../index.html" class="volver">← Volver al índice IA</a>
+    <h1>PRE-ENTRENAMIENTO: NANO-MODELO BASADO EN EL QUIJOTE</h1>
+</header>
+
+<main>
+    <nav class="indice-contenedor">
+        <span class="indice-titulo">_Pasos del Experimento</span>
+        <ul class="indice-lista">
+            <li class="indice-item"><a href="#fase1">01. Tokenización del Texto</a></li>
+            <li class="indice-item"><a href="#fase2">02. Configuración CUDA</a></li>
+            <li class="indice-item"><a href="#fase3">03. Bucle de Entrenamiento</a></li>
+            <li class="indice-item"><a href="#fase4">04. Inferencia y Pruebas</a></li>
+        </ul>
+    </nav>
+
+    <section id="fase1">
+        <h2>Fase 1: Preparación del Dataset</h2>
+        <div class="explicacion-visual">
+            <div class="texto-tecnico">
+                Para este ejercicio, cargamos el texto íntegro de <span class="highlight">Don Quijote de la Mancha</span>. El primer paso es convertir cada carácter en un ID numérico único. Al ser un modelo pequeño, trabajamos a nivel de carácter para simplificar el vocabulario.
+            </div>
+            <div class="img-frame">
+                <img src="img/Captura1.png" alt="Procesamiento de texto">
+                <span class="img-caption">Evidencia: Carga del archivo .txt y visualización de los primeros tokens generados</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="fase2">
+        <h2>Fase 2: Activación de Aceleración por Hardware</h2>
+        <div class="explicacion-visual">
+            <div class="texto-tecnico">
+                El pre-entrenamiento es computacionalmente costoso. Configuramos <span class="highlight">PyTorch</span> para detectar el núcleo CUDA de la GPU. Sin esto, el entrenamiento de los patrones estadísticos del castellano antiguo tardaría días en lugar de minutos.
+            </div>
+            <div class="code-box">
+import torch
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+print(f"Entrenando en: {device}")</div>
+            <div class="img-frame">
+                <img src="img/Captura2.png" alt="Detección CUDA">
+                <span class="img-caption">Consola: Confirmación de "Running on CUDA" y reserva de VRAM inicial</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="fase3">
+        <h2>Fase 3: El Bucle de Entrenamiento</h2>
+        <div class="explicacion-visual">
+            <div class="texto-tecnico">
+                Durante el entrenamiento, el modelo intenta predecir la siguiente letra. Si falla, el <span class="highlight">optimizador</span> ajusta los pesos de las neuronas. Buscamos que el valor de "Loss" (pérdida) disminuya progresivamente.
+            </div>
+            <div class="img-frame">
+                <img src="img/Captura3.png" alt="Métricas de entrenamiento">
+                <span class="img-caption">Gráfica de Loss: Se observa la convergencia del modelo tras 5000 iteraciones</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="fase4">
+        <h2>Fase 4: Inferencia (Hablando con Cervantes)</h2>
+        <div class="explicacion-visual">
+            <div class="texto-tecnico">
+                ¡Hora de la verdad! Introducimos un "prompt" como <span class="highlight">"En un lugar de la Mancha..."</span> y dejamos que el modelo complete el texto basándose en la probabilidad estadística que ha aprendido.
+            </div>
+            <div class="code-box">
+# Ejemplo de salida del modelo
+"En un lugar de la Mancha, de cuyo nombre no quiso el caballero Sancho..."</div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    18/02/2026 :: Julio Luengo Mendoza :: Pre-entrenamiento de Modelos Locales
+</footer>
+
+</body>
+</html>
