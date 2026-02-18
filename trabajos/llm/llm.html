@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Manual Chef-bot x Julio Luengo Mendoza</title>
+<style>
+    body { background: #222129; color: #f0bd8b; font-family: 'Courier New', Courier, monospace; margin: 0; scroll-behavior: smooth; }
+    header, main { max-width: 900px; margin: auto; padding: 32px 20px; }
+    
+    .titulo-bloque { display: flex; align-items: center; }
+    .tag { background: #f0bd8b; color: #222129; padding: 8px 18px; font-weight: bold; margin-right: 12px; border-radius: 2px; }
+    .barra { flex: 1; height: 12px; background: repeating-linear-gradient(to right, #f0bd8b, #f0bd8b 2px, transparent 2px, transparent 8px); }
+    
+    h1 { margin-top: 32px; background: #1d1c23; padding: 48px; font-size: 1.8em; border: 2px solid #f0bd8b; text-align: center; }
+
+    .volver { display: inline-block; margin-top: 20px; color: #ffc686; text-decoration: none; font-size: 0.9em; transition: transform 0.2s; }
+    .volver:hover { transform: translateX(-5px); color: #f0bd8b; }
+
+    .indice-contenedor { background: #1d1c23; border: 1px solid #f0bd8b; padding: 24px; margin: 32px 0; border-radius: 4px; }
+    .indice-titulo { font-weight: bold; margin-bottom: 15px; display: block; color: #ffc686; text-transform: uppercase; letter-spacing: 2px; }
+    .indice-lista { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .indice-item a { color: #f0bd8b; text-decoration: none; font-size: 0.9em; transition: all 0.2s; display: block; padding: 5px; }
+    .indice-item a:hover { background: #f0bd8b; color: #222129; padding-left: 15px; }
+
+    section { border-top: 2px solid #f0bd8b; margin-top: 60px; padding-top: 24px; }
+    h2 { color: #ffc686; margin-bottom: 15px; }
+    .highlight { color: #fff; font-weight: bold; background: #444; padding: 0 4px; }
+    
+    .code-box { background: #131313; border-left: 4px solid #f0bd8b; padding: 20px; margin: 20px 0; font-size: 0.85em; color: #c8a979; overflow-x: auto; white-space: pre; }
+
+    .explicacion-visual { display: flex; flex-direction: column; gap: 20px; margin: 25px 0; }
+    .texto-tecnico { background: #1d1c23; padding: 20px; border-left: 3px solid #f0bd8b; font-size: 0.95em; line-height: 1.6; }
+    
+    .img-frame { border: 1px solid #333; background: #131313; padding: 10px; text-align: center; }
+    .img-frame img { max-width: 100%; height: auto; border: 1px solid #f0bd8b; transition: transform 0.4s ease; cursor: zoom-in; }
+    .img-frame img:hover { transform: scale(1.02); }
+    .img-caption { display: block; margin-top: 10px; font-size: 0.75em; color: #ffc686; text-transform: uppercase; }
+
+    footer { text-align: center; padding: 40px; font-size: 0.8em; color: #666; }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="titulo-bloque">
+        <span class="tag">AI TRAINING LOG</span>
+        <div class="barra"></div>
+    </div>
+    <a href="../../index.html" class="volver">← Volver al índice IA</a>
+    <h1>FINE-TUNING CHEF-BOT: DE PHI-3 A EXPERTO CULINARIO</h1>
+</header>
+
+<main>
+    <nav class="indice-contenedor">
+        <span class="indice-titulo">_Pasos del Proyecto</span>
+        <ul class="indice-lista">
+            <li class="indice-item"><a href="#fase1">01. Entorno y GPU</a></li>
+            <li class="indice-item"><a href="#fase2">02. Dataset y Lógica</a></li>
+            <li class="indice-item"><a href="#fase3">03. Entrenamiento LoRA</a></li>
+            <li class="indice-item"><a href="#fase4">04. Cuantización Final</a></li>
+        </ul>
+    </nav>
+
+    <section id="fase1">
+        <h2>Fase 1: Preparación del Entorno y Hardware</h2>
+        <div class="explicacion-visual">
+            <div class="texto-tecnico">
+                Para este proyecto en Windows 11, utilizamos una <span class="highlight">RTX 4060 Ti</span>. Es vital configurar el entorno virtual e instalar las dependencias con soporte CUDA 12.1 para habilitar la aceleración por hardware.
+            </div>
+            <div class="code-box">
+# Crear entorno y activar
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+
+# Instalar Axolotl y dependencias de entrenamiento
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install "axolotl[flash-attn,deepspeed] @ git+https://github.com/OpenAccess-AI-Collective/axolotl"</div>
+            <div class="img-frame">
+                <img src="img/Captura1.png" alt="Estado GPU">
+                <span class="img-caption">Evidencia: Monitorización de la VRAM (15.1GB) durante el proceso</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="fase2">
+        <h2>Fase 2: Creación del Dataset de Recetas</h2>
+        <div class="explicacion-visual">
+            <div class="texto-tecnico">
+                El conocimiento del "Chef-bot" reside en el archivo <span class="highlight">recetas.jsonl</span>. Cada línea entrena al modelo para que, al recibir ingredientes, ignore cualquier charla general y genere una receta estructurada.
+            </div>
+            <div class="code-box">
+{"instruction": "Tengo pechugas de pollo, limón y ajo.", "output": "¡Claro! Puedes preparar unas 'Pechugas de Pollo al Limón'. Sella las pechugas en una sartén con aceite de oliva. Añade ajo picado y, cuando esté dorado, vierte el zumo de un limón. Cocina a fuego lento hasta que el pollo esté hecho. Sazona con sal, pimienta y perejil fresco."}
+{"instruction": "Ingredientes: patatas, huevos, cebolla.", "output": "Con eso, la receta estrella es la 'Tortilla de Patatas'. Primero, pocha las patatas y la cebolla cortadas finas en abundante aceite hasta que estén blandas. Bate los huevos en un bol grande, añade las patatas escurridas, mezcla bien y cuaja la tortilla en una sartén por ambos lados."}
+{"instruction": "Quiero hacer algo con tomates, mozzarella y albahaca.", "output": "La opción perfecta es una 'Ensalada Caprese'. Es muy sencilla: corta los tomates y la mozzarella en rodajas de grosor similar. Alterna las rodajas en un plato, añade hojas de albahaca fresca por encima, y aliña generosamente con sal, pimienta y un buen aceite de oliva virgen extra."}
+{"instruction": "Disponibles: garbanzos, espinacas y un poco de pimentón.", "output": "Puedes cocinar un delicioso 'Potaje de Garbanzos con Espinacas'. Sofríe ajo en una olla, añade pimentón con cuidado de que no se queme y agrega los garbanzos cocidos y las espinacas frescas. Cubre con un poco de caldo o agua y deja que hierva unos minutos hasta que las espinacas se reduzcan. ¡Listo!"}
+{"instruction": "Hay lentejas, chorizo y zanahoria.", "output": "¡Un clásico! Prepara unas 'Lentejas con Chorizo'. Pon las lentejas a cocer en una olla con agua. Añade la zanahoria picada y unas rodajas de chorizo. Deja cocer a fuego medio hasta que las lentejas estén tiernas. Se puede añadir un sofrito de cebolla y pimiento para más sabor."}</div>
+            <div class="img-frame">
+                <img src="img/Captura2.png" alt="Estructura Dataset">
+                <span class="img-caption">Log de Inferencia: El modelo asimilando la estructura Instrucción/Respuesta</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="fase3">
+        <h2>Fase 3: Ejecución del Fine-Tuning</h2>
+        <div class="explicacion-visual">
+            <div class="texto-tecnico">
+                Configuramos el entrenamiento mediante <span class="highlight">config_chef.yml</span>, inyectando adaptadores LoRA en el modelo Phi-3-mini. Esto permite especializar el modelo sin necesidad de reentrenar sus 3.8 billones de parámetros, optimizando el tiempo y la memoria.
+            </div>
+            <div class="code-box">
+# Lanzar entrenamiento
+accelerate launch -m axolotl.cli.train config_chef.yml</div>
+            <div class="img-frame">
+                <img src="img/Captura3.png" alt="Consola de entrenamiento">
+                <span class="img-caption">Terminal: Carga de Shards y configuración de BitsAndBytes (4-bit)</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="fase4">
+        <h2>Fase 4: Fusión y Cuantización GGUF</h2>
+        <div class="explicacion-visual">
+            <div class="texto-tecnico">
+                Finalmente, unimos el adaptador LoRA al modelo base y realizamos la cuantización a 4 bits utilizando <span class="highlight">llama.cpp</span>. Esto genera el archivo <span class="highlight">chef-bot-q4.gguf</span>, listo para ser usado en LM Studio. El éxito se confirma con el token de finalización (EOS).
+            </div>
+            <div class="code-box">
+# Fusionar y Cuantizar
+accelerate launch -m axolotl.cli.merge_lora config_chef.yml
+python llama.cpp/convert-hf-to-gguf.py ./merged --outfile chef-bot-q4.gguf</div>
+            <div class="img-frame">
+                <img src="img/Captura4.png" alt="Fin de proceso">
+                <span class="img-caption">Resultado Final: EOS Token encontrado y métricas de generación estables</span>
+            </div>
+        </div>
+    </section>
+</main>
+<a href="../../index.html" class="volver">← Volver al índice IA</a>
+<footer>
+    18/02/2026 :: Julio Luengo Mendoza :: Desarrollo de Agentes IA Locales
+</footer>
+
+</body>
+</html>
